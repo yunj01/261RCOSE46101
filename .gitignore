@@ -37,3 +37,8 @@ venv/
 # Secrets
 .env
 *.key
+
+# Internal dev notes (kept locally, not for public repo)
+PLAN.md
+STATUS.md
+PROJECT_CONTEXT.md
