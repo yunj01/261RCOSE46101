@@ -1,0 +1,84 @@
+# Korean CoT Distillation - Base Config
+
+teacher:
+  provider: "gemini"
+  model: "gemini-2.5-pro"          # CoT 생성용 (강력)
+  fallback_model: "gemini-2.5-flash"  # rate limit 시
+  rate_limit_rpm: 60                 # paid tier 가정
+  max_retries: 3
+  parallel_workers: 5
+
+student:
+  name: "Qwen/Qwen2.5-3B-Instruct"   # 후보: EXAONE-3.0-7.8B, Llama-3.2-3B
+  load_in_4bit: true
+  use_gradient_checkpointing: "unsloth"
+
+lora:
+  r: 32                              # reasoning 위해 r 더 큼
+  lora_alpha: 64
+  lora_dropout: 0.0
+  bias: "none"
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+training:
+  epochs: 3
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 2.0e-4
+  warmup_ratio: 0.03
+  max_seq_length: 1024
+  lr_scheduler_type: "cosine"
+  bf16: true
+  seed: 42
+  optim: "adamw_8bit"
+  weight_decay: 0.01
+
+data:
+  num_train_samples: 5000            # CoT 데이터 양 (per setup)
+  val_ratio: 0.05
+  seed: 42
+
+paths:
+  data_raw: "data/raw"
+  data_teacher_cot: "data/teacher_cot"
+  data_train: "data/train"
+  data_eval: "data/eval"
+  weights: "weights"
+  results: "results"
+
+# 학습 setup
+setups:
+  direct_ft:
+    description: "CoT 없이 (Q, A)만 학습"
+    lang: "ko"
+  english_cot:
+    description: "영어 CoT distillation"
+    lang: "en"
+  korean_cot:
+    description: "한국어 CoT distillation"
+    lang: "ko"
+  bilingual_cot:
+    description: "영어 + 한국어 CoT 결합"
+    lang: "both"
+
+# 평가 벤치마크
+benchmarks:
+  - name: "mgsm_ko"
+    type: "math"
+    lang: "ko"
+  - name: "kmmlu_math"
+    type: "math"
+    lang: "ko"
+  - name: "kobest"
+    type: "reasoning"
+    lang: "ko"
+  - name: "gsm8k_test"
+    type: "math"
+    lang: "en"

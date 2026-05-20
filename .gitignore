@@ -1,0 +1,39 @@
+# Data
+data/raw/*.jsonl
+data/raw/*.json
+data/teacher_cot/*.jsonl
+data/train/*.jsonl
+data/eval/*.jsonl
+
+# Weights
+weights/
+
+# Logs
+logs/
+*.log
+*.pid
+wandb/
+unsloth_compiled_cache/
+
+# Detached-runner wrappers & local archives
+scripts/*.cmd
+*.zip
+
+# Results
+results/*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Secrets
+.env
+*.key

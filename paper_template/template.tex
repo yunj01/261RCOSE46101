@@ -1,0 +1,302 @@
+\documentclass{article}
+
+\usepackage[final]{neurips_2020}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multirow}
+
+% \note{...} prints TODO reminders in blue. Delete notes before final submission.
+\newcommand{\note}[1]{\textcolor{blue}{{#1}}}
+
+\title{
+  Difficulty-Aware Language Routing for Korean Mathematical Reasoning \\
+  \vspace{1em}
+  \small{\normalfont Korea University COSE461 Final Project}
+}
+
+\author{
+  \note{Your Name} \\
+   Department of Computer Science \\
+   \note{Team N} \\
+   \note{2022320317}
+   \And
+   \note{Teammate Name} \\
+   Department of Computer Science \\
+   \note{Team N} \\
+   \note{20XXXXXXXX}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Small language models reason markedly better in English than in Korean
+on mathematical word problems. We trace part of this gap to the
+distillation pipeline itself: even a strong teacher produces
+lower-quality chain-of-thought (CoT) in Korean (85.7\% correct) than in
+English (97.5\%), so naively distilling Korean CoT caps the student at a
+degraded signal. We ask whether a model's stronger English reasoning can
+be leveraged to improve its Korean reasoning. We introduce
+\textbf{Difficulty-Aware Language Routing (DALR)}, a data-construction
+method that decides, per problem, whether to learn from a Korean or an
+English teacher CoT based on teacher correctness: English CoT is used
+only as a ``bridge'' on problems the Korean teacher fails. A controlled
+ablation shows that DALR's improvement comes from \emph{where} English
+reasoning is routed (hard problems) rather than from adding more data.
+We further combine specialist students via model soup
+\citep{wortsman2022soup} and a cross-lingual ensemble at inference. On
+HRM8K (Korean) and GSM8K (English) with Qwen2.5-3B, DALR achieves the
+best single-model Korean accuracy, model soup resolves the
+Korean--English trade-off, and the cross-lingual ensemble yields the
+best overall results.
+\end{abstract}
+
+% =====================================================================
+\section{Introduction}
+\label{sec:intro}
+
+Large language models perform strong multi-step mathematical reasoning,
+but small models (e.g.\ 3B parameters) lag far behind, and the gap is
+worse outside English. For a 3B model (Qwen2.5-3B-Instruct), we observe a
+large discrepancy between English and Korean: it solves \textbf{67.4\%}
+of English problems (GSM8K) but only \textbf{52.4\%} of Korean problems
+(HRM8K). This matters because most practical deployments cannot afford
+large models, yet must serve non-English users.
+
+A standard remedy is knowledge distillation: a strong teacher generates
+chain-of-thought (CoT) solutions, and a small student is fine-tuned on
+them. However, this strategy faces a subtle obstacle in the
+cross-lingual setting: \emph{the teacher is itself weaker in Korean}.
+In our data, the teacher produces correct CoT for \textbf{97.5\%} of
+English problems but only \textbf{85.7\%} of Korean problems. Distilling
+Korean CoT therefore transfers a noisier signal, while English continues
+to improve, widening rather than closing the gap.
+
+This motivates our central question: \emph{can a model's (and a
+teacher's) stronger English reasoning be used to improve Korean
+mathematical reasoning?} Our working assumption is that mathematical
+\emph{logic} is largely language-agnostic---the solution steps are the
+same whether a problem is posed in Korean or English---so connecting
+English reasoning patterns to Korean problems should help.
+
+We pursue this through \emph{quality-aware aggregation} of cross-lingual
+signals at three levels. At the \textbf{data level}, our main
+contribution \textbf{DALR} routes each problem to a Korean or English
+teacher CoT based on teacher correctness. At the \textbf{model level}, we
+average the weights of specialist students (model soup,
+\citealp{wortsman2022soup}). At the \textbf{inference level}, we
+majority-vote across models that reason in different languages.
+
+\paragraph{Contributions.}
+\begin{itemize}
+  \item We propose \textbf{DALR}, a difficulty-aware data-construction
+  method for cross-lingual CoT distillation, and show via a controlled
+  ablation (random vs.\ routed English bridges) that its gains stem from
+  \emph{routing}, not data scaling.
+  \item We apply and analyze model soup and cross-lingual ensembling in
+  the Korean math setting, identifying a Korean--English trade-off
+  induced by DALR and showing how aggregation resolves it.
+  \item We provide a statistical analysis (bootstrap confidence
+  intervals, McNemar tests) and a per-difficulty breakdown clarifying
+  where each method helps.
+\end{itemize}
+
+% =====================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Chain-of-thought and its distillation.}
+Chain-of-thought prompting elicits step-by-step reasoning
+\citep{wei2022cot}, and a line of work distills such reasoning into
+smaller models. \note{Add 1--2 CoT-distillation citations.}
+
+\paragraph{Cross-lingual reasoning.}
+Prior work transfers reasoning across languages via translation or
+cross-lingual instruction tuning. \note{Cite e.g.\ xCoT / MGSM.} Unlike
+methods that augment prompts at inference, DALR selects the training CoT
+\emph{language} per problem according to teacher quality.
+
+\paragraph{Weight averaging and self-consistency.}
+Model soup averages the weights of multiple fine-tuned models to obtain a
+single model at no extra inference cost \citep{wortsman2022soup}.
+Self-consistency samples multiple chains from one model and votes
+\citep{wang2022selfconsistency}. We instead ensemble \emph{distinct}
+models trained in different languages, exploiting their differing error
+patterns.
+
+% =====================================================================
+\section{Approach}
+\label{sec:approach}
+
+\subsection{Overview}
+We train a small student with several recipes that differ only in the
+language composition of their distillation data, producing complementary
+``specialists.'' We then aggregate cross-lingual signal at three levels:
+data (DALR), model weights (soup), and inference (ensemble).
+\note{Add Figure 1: the three-level pipeline diagram.}
+
+\subsection{Difficulty-Aware Language Routing (DALR)}
+\label{sec:dalr}
+Let a training problem have a Korean teacher CoT and an English teacher
+CoT, each labeled correct or incorrect by answer matching. For each
+Korean problem we route:
+\begin{itemize}
+  \item Korean correct $\rightarrow$ train on the \textbf{Korean CoT}
+  (natural Korean reasoning);
+  \item Korean incorrect, English correct $\rightarrow$ train on the
+  \textbf{English CoT} as a \emph{bridge} (Korean question, English
+  solution);
+  \item both incorrect $\rightarrow$ \textbf{discard} (likely noise).
+\end{itemize}
+Teacher failure in Korean is used as a signal that the problem is hard to
+reason about in Korean; a reliable English solution is then a better
+target. This yields 6{,}407 Korean and 920 English-bridge examples
+(7{,}327 total), which we call setup~F.
+
+\subsection{Model Soup}
+\label{sec:soup}
+Our recipes yield specialists with different strengths (English-strong,
+Korean-strong, balanced). We combine them by element-wise averaging of
+their LoRA weights \citep{wortsman2022soup}, producing a single model at
+$1\times$ inference cost.
+
+\subsection{Cross-Lingual Ensemble}
+\label{sec:clsc}
+At inference we run several models on the same problem and take a
+majority vote over final answers, breaking ties by a designated model.
+Because the models reason in different languages, their errors are
+decorrelated, improving ensemble accuracy.
+
+\subsection{Baselines}
+We compare against: A (base, no fine-tuning), B (English-only CoT), C
+(Korean-only CoT), D (bilingual mix), and E (two-stage English-then-
+Korean). F is DALR; F\_random is the DALR ablation that places the same
+920 English bridges on randomly chosen \emph{easy} (Korean-solved)
+problems instead of hard ones.
+
+% =====================================================================
+\section{Experiments}
+\label{sec:exp}
+
+\subsection{Data}
+Training problems come from GSM8K (7{,}473 grade-school math word
+problems) and its Korean machine translation GSM8K-ko. The teacher
+(Gemini) generates CoT in each language; we keep only answer-correct CoT
+(English: 7{,}283; Korean: 6{,}407). We evaluate on \textbf{HRM8K}
+(human-reviewed Korean translation of the GSM8K test set, 1{,}319
+problems) and \textbf{GSM8K} (English, 1{,}319). HRM8K is our main
+benchmark because its translation quality is higher than GSM8K-ko.
+
+\subsection{Evaluation method}
+We report exact-match accuracy on the final numeric answer, extracted by
+a regular expression and compared to the gold answer with a small
+numeric tolerance. We use single greedy decoding (no sampling) with a
+zero-shot CoT system prompt and a repetition penalty of 1.1.
+
+\subsection{Experimental details}
+The student is Qwen2.5-3B-Instruct, fine-tuned with LoRA ($r{=}32$,
+$\alpha{=}64$) for 3 epochs at learning rate $2\times10^{-4}$
+\note{(E uses two stages; see appendix)}. We train on a single
+RTX~5060~Ti. Model soups are formed by averaging LoRA adapters across
+setups.
+
+\subsection{Results}
+\label{sec:results}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Setup} & \textbf{HRM8K (KO)} & \textbf{GSM8K (EN)} \\
+\midrule
+A (Base)              & 53.9 & \note{TBD} \\
+B (English CoT)       & 54.4 & \note{TBD} \\
+C (Korean CoT)        & 59.5 & 70.7 \\
+D (Bilingual mix)     & \note{TBD} & \note{TBD} \\
+E (Two-stage)         & \note{TBD} & \note{TBD} \\
+F (DALR)              & \textbf{61.8} & 69.4 \\
+F\_random (ablation)  & 58.8 & 72.7 \\
+\midrule
+Model soup (B+C+D+E+F) & 60.1 & \textbf{78.6} \\
+\midrule
+Ensemble, 6 models      & 68.6$^\dagger$ & 81.6$^\dagger$ \\
+Ensemble, 6 + soup      & \textbf{70.0}$^\dagger$ & \textbf{84.4}$^\dagger$ \\
+\bottomrule
+\end{tabular}
+\caption{Accuracy (\%) on the full 1{,}319-problem test sets.
+$^\dagger$ ensemble numbers are preliminary (500-sample); the full-set
+update is pending. \note{Fill TBD once eval finishes.}}
+\label{tab:main}
+\end{table}
+
+Table~\ref{tab:main} summarizes our results.
+
+\paragraph{DALR improves Korean, and routing (not data) is the cause.}
+F and F\_random use the \emph{same} 920 English bridges and differ only
+in placement. On HRM8K, F (61.8) exceeds F\_random (58.8) by 3.0 points
+(McNemar $p{=}0.030$), and F\_random even drops below the Korean-only
+baseline C (59.5). Adding English data \emph{at random} hurts; routing it
+to hard problems helps. This isolates routing as the source of the gain.
+
+\paragraph{A Korean--English trade-off, resolved by aggregation.}
+DALR raises Korean but slightly lowers English (F: 69.4 vs.\ C: 70.7;
+$p{=}0.016$ vs.\ F\_random). Model soup recovers English strongly (78.6,
+$p{<}0.001$ vs.\ F) while keeping competitive Korean, giving the best
+single deployable model. The cross-lingual ensemble attains the best
+overall accuracy in both languages.
+
+% =====================================================================
+\section{Analysis}
+\label{sec:analysis}
+
+\paragraph{Where does DALR help?}
+Stratifying HRM8K problems by how many of our models solve them, F is
+strongest on \emph{medium-difficulty} problems
+\note{(insert per-difficulty numbers from final\_report.py)}, consistent
+with the intuition that English bridges help where Korean-only reasoning
+is unreliable, while contributing little on problems that are either
+trivial or unsolvable by all models.
+
+\paragraph{Statistical robustness.}
+We report bootstrap 95\% confidence intervals for all setups and McNemar
+tests for key comparisons \note{(move final numbers here after 1,319
+eval)}. The DALR-vs-Korean-only gap on HRM8K is positive but modest; the
+routing ablation (F vs.\ F\_random) and the soup's English gains are the
+statistically strongest effects.
+
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+We studied how to improve Korean mathematical reasoning in a small model
+by leveraging stronger English reasoning. Our main contribution, DALR,
+routes teacher CoT language per problem by difficulty; a controlled
+ablation shows the benefit comes from routing rather than added data.
+Combined with model soup and cross-lingual ensembling, the approach
+improves both Korean and English accuracy over baselines.
+\textbf{Limitations.} HRM8K is a translation of GSM8K rather than
+natively Korean math, so gains may partly reflect translated-problem
+solving; the DALR-vs-Korean-only margin is modest; and we use a single
+teacher and a single 3B student.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\newpage
+\appendix
+
+\section{Appendix: Team contributions}
+\note{1--2 sentences per member.}
+
+\end{document}
