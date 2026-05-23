@@ -166,11 +166,11 @@ Teacher failure in Korean is used as a difficulty signal: a reliable
 English solution is then a higher-quality target than the unreliable
 Korean one. Applied to GSM8K-ko's 7{,}473 training problems, this yields
 6{,}407 Korean and 920 English-bridge examples (7{,}327 total). We
-denote the resulting model \textbf{F}.
+denote the resulting model \textbf{E}.
 
 \paragraph{Ablation: routed vs.\ random.}
 To isolate the effect of routing from the effect of adding English
-data, we construct \textbf{F\_random}, which uses the \emph{same} 920
+data, we construct \textbf{E\_random}, which uses the \emph{same} 920
 English bridges placed on randomly chosen \emph{easy} (Korean-solved)
 problems instead of the hard ones, with everything else identical.
 
@@ -198,8 +198,8 @@ English bridges target precisely the harder (Korean-failing) problems.
 \subsection{Baselines}
 We compare against: \textbf{A} (base, no fine-tuning), \textbf{B}
 (English-only CoT distillation), \textbf{C} (Korean-only CoT
-distillation), \textbf{D} (bilingual 50/50 mix). \textbf{F} is DALR;
-\textbf{F\_random} is its routing ablation. All baselines share the
+distillation), \textbf{D} (bilingual 50/50 mix). \textbf{E} is DALR;
+\textbf{E\_random} is its routing ablation. All baselines share the
 student model, LoRA configuration, and training hyperparameters.
 
 \section{Experiments}
@@ -251,15 +251,15 @@ A (Base zero-shot)           & 53.90          & [51.2, 56.6] & 71.65 \\
 B (English CoT)              & 54.44          & [51.7, 57.2] & 74.22 \\
 C (Korean CoT)               & 59.51          & [56.8, 62.2] & 70.74 \\
 D (Bilingual mix)            & 58.98          & [56.2, 61.8] & 74.98 \\
-F (DALR)                     & \textbf{61.79} & [59.1, 64.4] & 69.37 \\
-F\_random (ablation)         & 58.83          & [56.2, 61.6] & 72.71 \\
+E (DALR)                     & \textbf{61.79} & [59.1, 64.4] & 69.37 \\
+E\_random (ablation)         & 58.83          & [56.2, 61.6] & 72.71 \\
 \midrule
-F + XLSC                     & \note{TBD}     & \note{TBD}   & \note{--} \\
-F + Cascade XLSC             & \note{TBD}     & \note{TBD}   & \note{--} \\
+E + XLSC                     & \note{TBD}     & \note{TBD}   & \note{--} \\
+E + Cascade XLSC             & \note{TBD}     & \note{TBD}   & \note{--} \\
 \bottomrule
 \end{tabular}
 \caption{Main results on HRM8K (Korean, 1{,}319 problems) and GSM8K
-(English, 1{,}319 problems) with the Qwen2.5-3B student. F (DALR) is
+(English, 1{,}319 problems) with the Qwen2.5-3B student. E (DALR) is
 the best single model on HRM8K; XLSC and Cascade further improve
 accuracy. \note{Fill XLSC/Cascade numbers once 1{,}319 evaluation
 finishes.}}
@@ -271,7 +271,7 @@ finishes.}}
 \small
 \begin{tabular}{lccc}
 \toprule
-\textbf{Student model} & \textbf{C (KO CoT)} & \textbf{F (DALR)} & \textbf{F + XLSC} \\
+\textbf{Student model} & \textbf{C (KO CoT)} & \textbf{E (DALR)} & \textbf{E + XLSC} \\
 \midrule
 Qwen2.5-3B        & 59.51 & \textbf{61.79} & \note{TBD} \\
 Llama-3.2-3B      & \note{TBD}  & \note{TBD}  & \note{TBD} \\
@@ -284,25 +284,25 @@ final-eval results.}}
 \end{table}
 
 \paragraph{DALR improves Korean, and routing (not data) is the cause.}
-On HRM8K, F (61.79) exceeds the Korean-only baseline C (59.51) by 2.28
+On HRM8K, E (61.79) exceeds the Korean-only baseline C (59.51) by 2.28
 points and the bilingual mix D (58.98) by 2.81 points, becoming the
-best single model. The ablation F\_random uses the \emph{same} 920
+best single model. The ablation E\_random uses the \emph{same} 920
 English bridges placed on easy problems and drops to 58.83 (below C),
-a 2.96-point gap from F (McNemar $p{=}0.030$). This isolates
+a 2.96-point gap from E (McNemar $p{=}0.030$). This isolates
 \emph{routing}---rather than added data---as the source of DALR's
 gain.
 
 \paragraph{A Korean--English trade-off.}
-DALR raises Korean accuracy but slightly lowers English (F: 69.37 vs.\
+DALR raises Korean accuracy but slightly lowers English (E: 69.37 vs.\
 C: 70.74). This is consistent with English bridges being concentrated
 on \emph{hard} Korean problems, which biases the model toward Korean
 question contexts even when producing English solutions. The trade-off
 motivates inference-time aggregation across both languages.
 
 \paragraph{XLSC and Cascade further improve Korean accuracy.}
-\note{Once the 1{,}319 XLSC/Cascade runs finish, fill the gain over F
+\note{Once the 1{,}319 XLSC/Cascade runs finish, fill the gain over E
 and the McNemar p-value here. Expected pattern from preliminary
-500-sample runs: F+XLSC $\approx$ 69\% on HRM8K (Qwen), with Cascade
+500-sample runs: E+XLSC $\approx$ 69\% on HRM8K (Qwen), with Cascade
 giving a small additional gain by resolving ties.}
 
 \paragraph{Robustness across students.}
@@ -313,19 +313,19 @@ suggesting the framework is not specific to Qwen.
 
 \section{Analysis}
 \paragraph{Why does routing matter?}
-Both F and F\_random use the same 920 English CoTs and the same total
+Both E and E\_random use the same 920 English CoTs and the same total
 training set size; they differ only in which 920 Korean training items
-are \emph{replaced} by English CoT. F replaces the items the teacher
-got wrong in Korean (high-difficulty), while F\_random replaces
-randomly chosen items the teacher got right. F\_random therefore
+are \emph{replaced} by English CoT. E replaces the items the teacher
+got wrong in Korean (high-difficulty), while E\_random replaces
+randomly chosen items the teacher got right. E\_random therefore
 discards reliable Korean training signal and substitutes mismatched
-English CoT, while F substitutes only on items where the Korean signal
-was unreliable in the first place. This explains why F\_random falls
-below C, and why F exceeds it.
+English CoT, while E substitutes only on items where the Korean signal
+was unreliable in the first place. This explains why E\_random falls
+below C, and why E exceeds it.
 
 \paragraph{Where does DALR help?}
 \note{Add a per-difficulty breakdown: stratify HRM8K problems by how
-many of the baselines (A,B,C,D) solve them, and report F's accuracy
+many of the baselines (A,B,C,D) solve them, and report E's accuracy
 per stratum. Expected: largest gains on medium-difficulty problems
 where Korean-only reasoning is unreliable but English bridges help.}
 
@@ -338,8 +338,8 @@ targeted budget allocation.}
 
 \paragraph{Statistical robustness.}
 \note{Summarize Bootstrap CIs (Table~\ref{tab:main}) and McNemar
-tests: F vs.\ F\_random ($p{=}0.030$ on HRM8K), F vs.\ C, F+XLSC vs.\
-F, Cascade vs.\ XLSC.}
+tests: E vs.\ E\_random ($p{=}0.030$ on HRM8K), E vs.\ C, E+XLSC vs.\
+E, Cascade vs.\ XLSC.}
 
 \section{Conclusion}
 We studied how to improve Korean mathematical reasoning in small
@@ -369,7 +369,7 @@ After you are done writing this report, save it as a .pdf file, and submit throu
 \section*{Appendix: Team contributions}
 \begin{itemize}
   \item \textbf{이윤제 (2022320317)}: \note{e.g., DALR design and
-  implementation, F/F\_random training and evaluation, statistical
+  implementation, E/E\_random training and evaluation, statistical
   analysis, paper writing (Sections~\ref{sec:dalr} and~\ref{sec:results}).}
   \item \textbf{김상준 (2022320306)}: \note{e.g., XLSC/Cascade design
   and implementation, tie analysis, paper writing

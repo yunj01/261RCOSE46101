@@ -170,38 +170,39 @@ korean_cot_distill/
 │   ├── data/
 │   │   ├── make_dalr_data.py        E (DALR) 학습 데이터 생성
 │   │   └── make_dalr_random_data.py E_random ablation 데이터 생성
-│   ├── train/sft.py                 LoRA SFT 학습 (a~f 모두 지원)
+│   ├── train/sft.py                 LoRA SFT 학습 (b/c/d/e/e_random)
 │   ├── eval/
 │   │   ├── evaluate.py              Greedy 평가 (SETUP_ADAPTER 정의)
 │   │   ├── self_consistency.py      단일 모델 SC (참고용)
-│   │   ├── xlsc.py                  ⭐ 새로 작성 (XLSC: KO×N + EN×N)
-│   │   └── cascade_xlsc.py          ⭐ 새로 작성 (Cascade tie-breaking)
+│   │   ├── xlsc.py                  ⭐ TBD (XLSC: KO×N + EN×N)
+│   │   └── cascade_xlsc.py          ⭐ TBD (Cascade tie-breaking)
 │   └── analysis/
 │       └── statistical_tests.py     Bootstrap + McNemar
-├── weights/
+├── weights/                         (git에 포함 안 됨; Drive 공유)
 │   ├── setup_b/, setup_c/, setup_d/  baseline LoRA adapters
-│   ├── setup_f/                      ⭐ E (DALR) adapter (파일명은 setup_f 유지)
-│   └── setup_f_random/               ⭐ E_random adapter
+│   ├── setup_e/                      ⭐ DALR adapter
+│   └── setup_e_random/               ⭐ DALR ablation adapter
 ├── data/
 │   ├── eval/hrm8k_ko.jsonl           HRM8K (1,319)
 │   ├── eval/gsm8k_test_en.jsonl      GSM8K (1,319)
-│   └── teacher_cot/cot_{en,ko}.jsonl Gemini CoT
+│   ├── teacher_cot/cot_{en,ko}.jsonl Gemini CoT
+│   └── train/setup_{b,c,d,e_dalr,e_random}.jsonl  SFT 학습 데이터
 └── results/
-    ├── setup_*_hrm8k.json            greedy 결과
+    ├── setup_*_hrm8k.json            greedy 결과 (a~e, e_random)
     ├── setup_*_gsm8k.json
     ├── xlsc_e_hrm8k.json             ⭐ 곧 생성
     └── cascade_xlsc_e_hrm8k.json     ⭐ 곧 생성
 ```
 
-**주의**: 파일시스템에는 `setup_f` 그대로 둠 (rename 안 함). 논문에서만 **E**로 표기.
+**명명 통일**: 코드/데이터/weights/results 전부 **E** / **E_random** 으로 통일 완료. 폐기된 `setup_f*` 와 두 단계 학습용 `setup_e_stage*`, `setup_e_final` 은 제거됨.
 
 ---
 
 ## 다음 액션
 
 1. `src/eval/xlsc.py` 작성 (KO×3 + EN×3 voting)
-2. XLSC 실행: `python -m src.eval.xlsc --setup f --bench hrm8k --n 3 --temp 0.7`
+2. XLSC 실행: `python -m src.eval.xlsc --setup e --bench hrm8k --n 3 --temp 0.7`
 3. `src/eval/cascade_xlsc.py` 작성 (tie-breaking)
 4. Cascade 실행
-5. 통계 검정 추가 계산
-6. paper_draft_v1.tex 표 1 채우기 (F→E 표기 일괄 변경)
+5. 통계 검정 추가 계산: `python -m src.analysis.statistical_tests --limit 0`
+6. paper_draft_v1.tex 표 1 의 XLSC / Cascade XLSC 행 채우기

@@ -1,5 +1,5 @@
 """
-Setup F: DALR (Difficulty-Aware Language Routing) training data.
+Setup E: DALR (Difficulty-Aware Language Routing) training data.
 
 Logic per problem (matched by numeric ID suffix):
   - Korean CoT valid   → Korean Q + Korean CoT        (natural reasoning)
@@ -7,7 +7,7 @@ Logic per problem (matched by numeric ID suffix):
                        → Korean Q + English CoT        (bridge for hard problems)
   - Both invalid       → skip
 
-Output: data/train/setup_f_dalr.jsonl
+Output: data/train/setup_e_dalr.jsonl
 
 Usage:
   python -m src.data.make_dalr_data
@@ -79,7 +79,7 @@ def main():
             n_skip += 1
 
     # ── 5. Save ──────────────────────────────────────────────────────────────
-    out_path = project / "data/train/setup_f_dalr.jsonl"
+    out_path = project / "data/train/setup_e_dalr.jsonl"
     with open(out_path, "w", encoding="utf-8") as f:
         for rec in records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")

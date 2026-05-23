@@ -1,20 +1,20 @@
 """
-Phase 5: Evaluate all 5 setups on HRM8K and GSM8K test.
+Greedy evaluation for the 5 setups in the DALR pipeline.
 
 Setups:
-  a = Base (no FT, Qwen2.5-3B-Instruct as-is)
-  b = English CoT FT
-  c = Korean CoT FT
-  d = Bilingual Mix FT
-  e = Two-stage (Setup E final)
+  a         = Base (no FT, Qwen2.5-3B-Instruct as-is)
+  b         = English CoT FT
+  c         = Korean CoT FT
+  d         = Bilingual Mix FT (50/50)
+  e         = DALR (Difficulty-Aware Language Routing)
+  e_random  = DALR ablation (random EN bridges on easy problems)
 
 Benchmarks:
-  hrm8k   = data/eval/hrm8k_ko.jsonl    (600, Korean math)  ⭐ main
-  gsm8k   = data/eval/gsm8k_test_en.jsonl (1319, English math)
+  hrm8k = data/eval/hrm8k_ko.jsonl      (1,319 Korean math) ⭐ main
+  gsm8k = data/eval/gsm8k_test_en.jsonl (1,319 English math)
 
 Usage:
-  python -m src.eval.evaluate --setup a --bench hrm8k
-  python -m src.eval.evaluate --setup e --bench all
+  python -m src.eval.evaluate --setup e --bench hrm8k
   python -m src.eval.evaluate --setup all --bench all   # full matrix
 """
 
@@ -38,17 +38,12 @@ SYSTEM_KO = "당신은 수학 문제를 단계별로 풀어주는 친절한 선�
 SYSTEM_EN = "You are a helpful math tutor. Solve problems step by step."
 
 SETUP_ADAPTER = {
-    "a":  None,                    # base, no adapter
-    "b":  "weights/setup_b",
-    "c":  "weights/setup_c",
-    "d":  "weights/setup_d",
-    "e":  "weights/setup_e_final",
-    "f":  "weights/setup_f",       # DALR: difficulty-aware language routing
-    "f_random": "weights/setup_f_random",  # DALR ablation: random EN bridges
-    "soup_bc":    "weights/soup_bc",     # B+C LoRA average (EN + KO specialists)
-    "soup_cf":    "weights/soup_cf",     # C+F LoRA average (KO + DALR)
-    "soup_bcf":   "weights/soup_bcf",    # B+C+F LoRA average
-    "soup_bcdef": "weights/soup_bcdef",  # B+C+D+E+F LoRA average (all FT setups)
+    "a":        None,                       # base, no adapter
+    "b":        "weights/setup_b",          # English-only CoT SFT
+    "c":        "weights/setup_c",          # Korean-only CoT SFT
+    "d":        "weights/setup_d",          # bilingual 50/50 mix SFT
+    "e":        "weights/setup_e",          # DALR: difficulty-aware language routing
+    "e_random": "weights/setup_e_random",   # DALR ablation: random EN bridges
 }
 
 BENCH_FILE = {

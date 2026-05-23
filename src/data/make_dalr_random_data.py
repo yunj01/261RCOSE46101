@@ -1,16 +1,16 @@
 """
-Setup F_random: DALR ablation (random English bridges).
+Setup E_random: DALR ablation (random English bridges).
 
-Control for setup F (DALR). Same total size as F (6,407 KO + 920 EN),
+Control for setup E (DALR). Same total size as E (6,407 KO + 920 EN),
 but the 920 EN bridges are sampled from problems where Korean CoT *succeeded*,
 not from the hard problems where Korean CoT failed.
 
 Hypothesis test:
-  F  > F_random  → "EN on hard problems" matters (DALR claim holds)
-  F == F_random  → just data scaling, no real routing effect
-  F  < F_random  → DALR is actively harmful (unlikely)
+  E  > E_random  → "EN on hard problems" matters (DALR claim holds)
+  E == E_random  → just data scaling, no real routing effect
+  E  < E_random  → DALR is actively harmful (unlikely)
 
-Output: data/train/setup_f_random.jsonl
+Output: data/train/setup_e_random.jsonl
 
 Usage:
   python -m src.data.make_dalr_random_data [--seed 42] [--n-bridge 920]
@@ -41,7 +41,7 @@ def main():
         for line in f:
             rec = json.loads(line)
             ko_questions[extract_suffix(rec["id"])] = rec["question"]
-    print(f"[F_random] Korean questions loaded : {len(ko_questions):,}")
+    print(f"[E_random] Korean questions loaded : {len(ko_questions):,}")
 
     en_cot: dict[str, str] = {}
     with open(project / "data/teacher_cot/cot_en.jsonl", encoding="utf-8") as f:
@@ -49,7 +49,7 @@ def main():
             rec = json.loads(line)
             if rec.get("valid"):
                 en_cot[extract_suffix(rec["id"])] = rec["cot"]
-    print(f"[F_random] English CoT valid       : {len(en_cot):,}")
+    print(f"[E_random] English CoT valid       : {len(en_cot):,}")
 
     ko_cot: dict[str, str] = {}
     with open(project / "data/teacher_cot/cot_ko.jsonl", encoding="utf-8") as f:
@@ -57,11 +57,11 @@ def main():
             rec = json.loads(line)
             if rec.get("valid"):
                 ko_cot[extract_suffix(rec["id"])] = rec["cot"]
-    print(f"[F_random] Korean CoT valid        : {len(ko_cot):,}")
+    print(f"[E_random] Korean CoT valid        : {len(ko_cot):,}")
 
     # KO-success pool for random EN bridge sampling (the control set)
     ko_success_with_en = [s for s in ko_cot if s in en_cot]
-    print(f"[F_random] KO-success ∩ EN-valid   : {len(ko_success_with_en):,}")
+    print(f"[E_random] KO-success ∩ EN-valid   : {len(ko_success_with_en):,}")
 
     if len(ko_success_with_en) < args.n_bridge:
         raise ValueError(
@@ -70,9 +70,9 @@ def main():
 
     bridge_ids = set(random.sample(ko_success_with_en, args.n_bridge))
 
-    # Match F's structure: every KO-success problem keeps its KO CoT,
+    # Match E's structure: every KO-success problem keeps its KO CoT,
     # plus 920 random KO-success problems ALSO get an EN CoT entry (duplicated input, different CoT).
-    # Total = 6,407 KO + 920 EN = 7,327 (same as F).
+    # Total = 6,407 KO + 920 EN = 7,327 (same as E).
     records = []
     n_ko, n_bridge, n_skip = 0, 0, 0
 
@@ -95,12 +95,12 @@ def main():
             })
             n_bridge += 1
 
-    out_path = project / "data/train/setup_f_random.jsonl"
+    out_path = project / "data/train/setup_e_random.jsonl"
     with open(out_path, "w", encoding="utf-8") as f:
         for rec in records:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-    print(f"\n[F_random] Dataset created (seed={args.seed}):")
+    print(f"\n[E_random] Dataset created (seed={args.seed}):")
     print(f"  Korean CoT                       : {n_ko:,}")
     print(f"  English CoT (random bridge)      : {n_bridge:,}")
     print(f"  Skipped (KO failed, not sampled) : {n_skip:,}")
