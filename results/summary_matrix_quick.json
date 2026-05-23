@@ -1,0 +1,52 @@
+{
+  "a_hrm8k": {
+    "accuracy": 14.67,
+    "correct": 22,
+    "total": 150
+  },
+  "a_gsm8k": {
+    "accuracy": 28.67,
+    "correct": 43,
+    "total": 150
+  },
+  "b_hrm8k": {
+    "accuracy": 9.33,
+    "correct": 14,
+    "total": 150
+  },
+  "b_gsm8k": {
+    "accuracy": 17.33,
+    "correct": 26,
+    "total": 150
+  },
+  "c_hrm8k": {
+    "accuracy": 20.0,
+    "correct": 30,
+    "total": 150
+  },
+  "c_gsm8k": {
+    "accuracy": 18.67,
+    "correct": 28,
+    "total": 150
+  },
+  "d_hrm8k": {
+    "accuracy": 14.67,
+    "correct": 22,
+    "total": 150
+  },
+  "d_gsm8k": {
+    "accuracy": 24.0,
+    "correct": 36,
+    "total": 150
+  },
+  "e_hrm8k": {
+    "accuracy": 12.0,
+    "correct": 18,
+    "total": 150
+  },
+  "e_gsm8k": {
+    "accuracy": 16.0,
+    "correct": 24,
+    "total": 150
+  }
+}
