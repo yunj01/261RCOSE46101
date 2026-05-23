@@ -1,0 +1,52 @@
+======================================================================
+PHASE 6 ANALYSIS REPORT
+======================================================================
+
+[1] SINGLE MODEL RESULTS (n=500 each)
+Setup                     HRM8K      GSM8K
+------------------------------------------
+A (Base)                  52.4%      67.4%
+B (EN CoT)                53.6%      73.4%
+C (KO CoT)                58.4%      69.2%
+D (Bilingual)             55.4%      72.8%
+E (Two-stage)             56.6%      72.2%
+F (DALR)                  59.2%      66.2%
+
+[2] CLSC ENSEMBLE RESULTS
+Combo                       HRM8K      GSM8K
+--------------------------------------------
+B+C                        58.4 %     73.4 %
+F+B                        59.2 %     73.4 %
+F+C                        58.4 %     66.2 %
+B+C+D                      58.4 %     76.8 %
+F+B+C                      58.4 %     77.2 %
+B+C+D+E                    63.0 %     79.6 %
+A+B+C+D+E+F                68.6 %     81.6 %
+
+[3] DALR (F) vs KO CoT (C) — HRM8K breakdown
+  Problems F gets right, C gets wrong (DALR gain) : 66
+  Problems C gets right, F gets wrong (DALR loss)  : 62
+  Both correct                                     : 230
+  Both wrong                                       : 142
+  Net DALR gain: +4 problems (0.8%p)
+
+[4] UNIQUE CONTRIBUTION per setup (HRM8K)
+  A (Base)            : 12 problems uniquely solved
+  B (EN CoT)          : 11 problems uniquely solved
+  C (KO CoT)          : 14 problems uniquely solved
+  D (Bilingual)       : 10 problems uniquely solved
+  E (Two-stage)       : 4 problems uniquely solved
+  F (DALR)            : 8 problems uniquely solved
+
+  Total solvable by ≥1 setup : 431/500 (86.2%)
+
+[5] KEY FINDINGS
+  Best single HRM8K : F (59.2%)
+  Best single GSM8K : B (73.4%)
+  Best CLSC HRM8K   : A+B+C+D+E+F (68.6%)
+  Best CLSC GSM8K   : A+B+C+D+E+F (81.6%)
+  HRM8K gain vs base: +16.2%p (CLSC)
+  GSM8K gain vs base: +14.2%p (CLSC)
+  Forgetting (E vs B GSM8K): 98.4% retention
+
+======================================================================

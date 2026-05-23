@@ -1,44 +1,65 @@
-# Data
-data/raw/*.jsonl
-data/raw/*.json
-data/teacher_cot/*.jsonl
-data/train/*.jsonl
-data/eval/*.jsonl
+# =====================================================================
+# Korean CoT Distillation — .gitignore
+# Strategy: share code + data + result JSONs. LoRA weights go to Drive.
+# =====================================================================
 
-# Weights
+# Model weights (4.2 GB; share separately via Google Drive / W&B)
 weights/
 
-# Logs
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Unsloth / HF caches
+unsloth_compiled_cache/
+.cache/
+
+# Logs and runtime files
 logs/
 *.log
 *.pid
 wandb/
-unsloth_compiled_cache/
-
-# Detached-runner wrappers & local archives
-scripts/*.cmd
-*.zip
-
-# Results
-results/*.json
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-.venv/
-venv/
+nohup.out
 
 # IDE
 .vscode/
 .idea/
+*.swp
+.DS_Store
 
 # Secrets
 .env
+.env.local
 *.key
+*.pem
 
-# Internal dev notes (kept locally, not for public repo)
+# Local archives
+*.zip
+*.tar
+*.tar.gz
+
+# Local-only run wrappers (machine-specific paths)
+scripts/*.cmd
+scripts/run_detached.ps1
+
+# Legacy planning notes (kept locally only)
 PLAN.md
 STATUS.md
-PROJECT_CONTEXT.md
+DALR_SETUP.md
+
+# Paper build artifacts
+paper_template/*.pdf
+paper_template/*.aux
+paper_template/*.bbl
+paper_template/*.blg
+paper_template/*.log
+paper_template/*.out
+paper_template/*.synctex.gz

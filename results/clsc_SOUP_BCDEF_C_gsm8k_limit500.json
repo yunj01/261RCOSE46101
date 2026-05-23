@@ -1,0 +1,7010 @@
+{
+  "method": "CLSC",
+  "combo": "SOUP_BCDEF+C",
+  "bench": "gsm8k",
+  "total": 500,
+  "correct": 387,
+  "accuracy": 77.4,
+  "details": [
+    {
+      "id": "gsm8k_en_test_00588",
+      "gold": "52",
+      "voted": "52",
+      "correct": true,
+      "all_votes": [
+        "52",
+        "52"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01214",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00057",
+      "gold": "83",
+      "voted": "83",
+      "correct": true,
+      "all_votes": [
+        "83",
+        "83"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00906",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01252",
+      "gold": "70",
+      "voted": "70",
+      "correct": true,
+      "all_votes": [
+        "70",
+        "70"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00618",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "36."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00599",
+      "gold": "48",
+      "voted": "48",
+      "correct": true,
+      "all_votes": [
+        "48",
+        "48"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00289",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00608",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00400",
+      "gold": "48",
+      "voted": "48",
+      "correct": true,
+      "all_votes": [
+        "48",
+        "48"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00237",
+      "gold": "90",
+      "voted": "90",
+      "correct": true,
+      "all_votes": [
+        "90",
+        "90"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00616",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00672",
+      "gold": "2",
+      "voted": "20",
+      "correct": false,
+      "all_votes": [
+        "20",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01132",
+      "gold": "45000",
+      "voted": "45000",
+      "correct": true,
+      "all_votes": [
+        "45000",
+        "45000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00463",
+      "gold": "18",
+      "voted": "18",
+      "correct": true,
+      "all_votes": [
+        "18",
+        "18"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00222",
+      "gold": "140",
+      "voted": "140",
+      "correct": true,
+      "all_votes": [
+        "140",
+        "140"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00945",
+      "gold": "17",
+      "voted": "19",
+      "correct": false,
+      "all_votes": [
+        "19",
+        "17"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00238",
+      "gold": "68",
+      "voted": "68",
+      "correct": true,
+      "all_votes": [
+        "68",
+        "68"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00730",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00055",
+      "gold": "14",
+      "voted": "14",
+      "correct": true,
+      "all_votes": [
+        "14",
+        "14"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00772",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00176",
+      "gold": "100",
+      "voted": "100",
+      "correct": true,
+      "all_votes": [
+        "100",
+        "100"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00015",
+      "gold": "125",
+      "voted": "125",
+      "correct": true,
+      "all_votes": [
+        "125",
+        "125"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00066",
+      "gold": "48",
+      "voted": "48",
+      "correct": true,
+      "all_votes": [
+        "48",
+        "48"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00479",
+      "gold": "15400",
+      "voted": "15400",
+      "correct": true,
+      "all_votes": [
+        "15400",
+        "15400"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00896",
+      "gold": "250",
+      "voted": "250",
+      "correct": true,
+      "all_votes": [
+        "250",
+        "250"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01122",
+      "gold": "18",
+      "voted": "2",
+      "correct": false,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01005",
+      "gold": "1490",
+      "voted": "1490",
+      "correct": true,
+      "all_votes": [
+        "1490",
+        "1490"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00480",
+      "gold": "11",
+      "voted": "11",
+      "correct": true,
+      "all_votes": [
+        "11",
+        "11"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00187",
+      "gold": "106",
+      "voted": "106",
+      "correct": true,
+      "all_votes": [
+        "106",
+        "106."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00275",
+      "gold": "138",
+      "voted": "138",
+      "correct": true,
+      "all_votes": [
+        "138",
+        "222"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00868",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00921",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00562",
+      "gold": "82",
+      "voted": "82",
+      "correct": true,
+      "all_votes": [
+        "82",
+        "82"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01082",
+      "gold": "2",
+      "voted": "1.5",
+      "correct": false,
+      "all_votes": [
+        "1.5",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00172",
+      "gold": "51",
+      "voted": "51",
+      "correct": true,
+      "all_votes": [
+        "51",
+        "51"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00770",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01191",
+      "gold": "100",
+      "voted": "100",
+      "correct": true,
+      "all_votes": [
+        "100",
+        "100"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00413",
+      "gold": "25",
+      "voted": "2450",
+      "correct": false,
+      "all_votes": [
+        "2450",
+        "125"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00537",
+      "gold": "188",
+      "voted": "188",
+      "correct": true,
+      "all_votes": [
+        "188",
+        "188"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01154",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01308",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00454",
+      "gold": "150",
+      "voted": "240",
+      "correct": false,
+      "all_votes": [
+        "240",
+        "240"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00280",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00177",
+      "gold": "350",
+      "voted": "350",
+      "correct": true,
+      "all_votes": [
+        "350",
+        "-6200"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00923",
+      "gold": "2",
+      "voted": "4.5",
+      "correct": false,
+      "all_votes": [
+        "4.5",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00677",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "100"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01176",
+      "gold": "2",
+      "voted": "5",
+      "correct": false,
+      "all_votes": [
+        "5",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00021",
+      "gold": "14",
+      "voted": "2",
+      "correct": false,
+      "all_votes": [
+        "2",
+        "33"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00970",
+      "gold": "33",
+      "voted": "33",
+      "correct": true,
+      "all_votes": [
+        "33",
+        "33"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00356",
+      "gold": "21",
+      "voted": "21",
+      "correct": true,
+      "all_votes": [
+        "21",
+        "11"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00100",
+      "gold": "175",
+      "voted": "175",
+      "correct": true,
+      "all_votes": [
+        "175",
+        "705"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00132",
+      "gold": "60",
+      "voted": "54",
+      "correct": false,
+      "all_votes": [
+        "54",
+        "60"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00364",
+      "gold": "49",
+      "voted": "49",
+      "correct": true,
+      "all_votes": [
+        "49",
+        "92"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00969",
+      "gold": "1800",
+      "voted": "1500",
+      "correct": false,
+      "all_votes": [
+        "1500",
+        "1800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01273",
+      "gold": "27",
+      "voted": "27",
+      "correct": true,
+      "all_votes": [
+        "27",
+        "35"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00143",
+      "gold": "16",
+      "voted": "15.70",
+      "correct": false,
+      "all_votes": [
+        "15.70",
+        "16.50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00442",
+      "gold": "49",
+      "voted": "49",
+      "correct": true,
+      "all_votes": [
+        "49",
+        "59"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00464",
+      "gold": "6",
+      "voted": "4",
+      "correct": false,
+      "all_votes": [
+        "4",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01089",
+      "gold": "32",
+      "voted": "32",
+      "correct": true,
+      "all_votes": [
+        "32",
+        "32"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00259",
+      "gold": "168",
+      "voted": "76",
+      "correct": false,
+      "all_votes": [
+        "76",
+        "168"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00090",
+      "gold": "225",
+      "voted": "225",
+      "correct": true,
+      "all_votes": [
+        "225",
+        "225"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00998",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00989",
+      "gold": "45",
+      "voted": "45",
+      "correct": true,
+      "all_votes": [
+        "45",
+        "315"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00022",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00586",
+      "gold": "800",
+      "voted": "800",
+      "correct": true,
+      "all_votes": [
+        "800",
+        "800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00756",
+      "gold": "22",
+      "voted": "22",
+      "correct": true,
+      "all_votes": [
+        "22",
+        "22"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01261",
+      "gold": "235",
+      "voted": "235",
+      "correct": true,
+      "all_votes": [
+        "235",
+        "225"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00296",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00383",
+      "gold": "2",
+      "voted": "18",
+      "correct": false,
+      "all_votes": [
+        "18",
+        "18."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00709",
+      "gold": "3000",
+      "voted": "3000",
+      "correct": true,
+      "all_votes": [
+        "3000",
+        "3000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01069",
+      "gold": "300",
+      "voted": "300",
+      "correct": true,
+      "all_votes": [
+        "300",
+        "300"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01141",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00179",
+      "gold": "130",
+      "voted": "130",
+      "correct": true,
+      "all_votes": [
+        "130",
+        "130"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00731",
+      "gold": "1",
+      "voted": "2",
+      "correct": false,
+      "all_votes": [
+        "2",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01241",
+      "gold": "8",
+      "voted": "17.60",
+      "correct": false,
+      "all_votes": [
+        "17.60",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00371",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00107",
+      "gold": "3",
+      "voted": "5",
+      "correct": false,
+      "all_votes": [
+        "5",
+        "420"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01115",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00851",
+      "gold": "110",
+      "voted": "110",
+      "correct": true,
+      "all_votes": [
+        "110",
+        "110"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00303",
+      "gold": "1300",
+      "voted": "900",
+      "correct": false,
+      "all_votes": [
+        "900",
+        "4000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00535",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00544",
+      "gold": "80",
+      "voted": "80",
+      "correct": true,
+      "all_votes": [
+        "80",
+        "80"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00374",
+      "gold": "45",
+      "voted": "45",
+      "correct": true,
+      "all_votes": [
+        "45",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00387",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "36"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00434",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "0"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00706",
+      "gold": "9",
+      "voted": "6",
+      "correct": false,
+      "all_votes": [
+        "6",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00347",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "36"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00811",
+      "gold": "60",
+      "voted": "84",
+      "correct": false,
+      "all_votes": [
+        "84",
+        "60"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00035",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00892",
+      "gold": "1",
+      "voted": "1",
+      "correct": true,
+      "all_votes": [
+        "1",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00314",
+      "gold": "30",
+      "voted": "42",
+      "correct": false,
+      "all_votes": [
+        "42",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00002",
+      "gold": "70000",
+      "voted": "70000",
+      "correct": true,
+      "all_votes": [
+        "70000",
+        "195000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00944",
+      "gold": "34",
+      "voted": "34",
+      "correct": true,
+      "all_votes": [
+        "34",
+        "34"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00687",
+      "gold": "13",
+      "voted": "13",
+      "correct": true,
+      "all_votes": [
+        "13",
+        "13"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01184",
+      "gold": "306",
+      "voted": "306",
+      "correct": true,
+      "all_votes": [
+        "306",
+        "306."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00297",
+      "gold": "55",
+      "voted": "55",
+      "correct": true,
+      "all_votes": [
+        "55",
+        "55"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01068",
+      "gold": "24",
+      "voted": "6",
+      "correct": false,
+      "all_votes": [
+        "6",
+        "24"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00792",
+      "gold": "75",
+      "voted": "75",
+      "correct": true,
+      "all_votes": [
+        "75",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00932",
+      "gold": "24",
+      "voted": "24",
+      "correct": true,
+      "all_votes": [
+        "24",
+        "24"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00405",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00863",
+      "gold": "110",
+      "voted": "110",
+      "correct": true,
+      "all_votes": [
+        "110",
+        "110"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00953",
+      "gold": "452",
+      "voted": "452",
+      "correct": true,
+      "all_votes": [
+        "452",
+        "457"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00049",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00474",
+      "gold": "80",
+      "voted": "80",
+      "correct": true,
+      "all_votes": [
+        "80",
+        "80"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00410",
+      "gold": "3",
+      "voted": "0",
+      "correct": false,
+      "all_votes": [
+        "0",
+        "-1.5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00705",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00528",
+      "gold": "172",
+      "voted": "172",
+      "correct": true,
+      "all_votes": [
+        "172",
+        "110"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00220",
+      "gold": "70",
+      "voted": "70",
+      "correct": true,
+      "all_votes": [
+        "70",
+        "70"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01299",
+      "gold": "13",
+      "voted": "13",
+      "correct": true,
+      "all_votes": [
+        "13",
+        "13"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01212",
+      "gold": "150",
+      "voted": "150",
+      "correct": true,
+      "all_votes": [
+        "150",
+        "150"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00368",
+      "gold": "18",
+      "voted": "16",
+      "correct": false,
+      "all_votes": [
+        "16",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00926",
+      "gold": "1",
+      "voted": "8",
+      "correct": false,
+      "all_votes": [
+        "8",
+        "28"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00243",
+      "gold": "250",
+      "voted": "250",
+      "correct": true,
+      "all_votes": [
+        "250",
+        "250"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00056",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00889",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01234",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00069",
+      "gold": "60",
+      "voted": "60",
+      "correct": true,
+      "all_votes": [
+        "60",
+        "60."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01157",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01193",
+      "gold": "9",
+      "voted": "8",
+      "correct": false,
+      "all_votes": [
+        "8",
+        "22"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01293",
+      "gold": "140000",
+      "voted": "140000",
+      "correct": true,
+      "all_votes": [
+        "140000",
+        "140000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00749",
+      "gold": "3",
+      "voted": "6",
+      "correct": false,
+      "all_votes": [
+        "6",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01054",
+      "gold": "2400",
+      "voted": "2400",
+      "correct": true,
+      "all_votes": [
+        "2400",
+        "2400."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00269",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00812",
+      "gold": "79",
+      "voted": "98",
+      "correct": false,
+      "all_votes": [
+        "98",
+        "96"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01143",
+      "gold": "300",
+      "voted": "300",
+      "correct": true,
+      "all_votes": [
+        "300",
+        "300"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00192",
+      "gold": "91",
+      "voted": "91",
+      "correct": true,
+      "all_votes": [
+        "91",
+        "91"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00623",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00678",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00382",
+      "gold": "350",
+      "voted": "350",
+      "correct": true,
+      "all_votes": [
+        "350",
+        "350"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00207",
+      "gold": "2600",
+      "voted": "2600",
+      "correct": true,
+      "all_votes": [
+        "2600",
+        "4200"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00848",
+      "gold": "10",
+      "voted": "-10",
+      "correct": false,
+      "all_votes": [
+        "-10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00428",
+      "gold": "26",
+      "voted": "44",
+      "correct": false,
+      "all_votes": [
+        "44",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00622",
+      "gold": "7",
+      "voted": "3",
+      "correct": false,
+      "all_votes": [
+        "3",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01213",
+      "gold": "31",
+      "voted": "37",
+      "correct": false,
+      "all_votes": [
+        "37",
+        "31"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00847",
+      "gold": "975",
+      "voted": "975",
+      "correct": true,
+      "all_votes": [
+        "975",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00044",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "380.00"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00658",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00591",
+      "gold": "220",
+      "voted": "220",
+      "correct": true,
+      "all_votes": [
+        "220",
+        "220"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00342",
+      "gold": "87",
+      "voted": "87",
+      "correct": true,
+      "all_votes": [
+        "87",
+        "87"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01024",
+      "gold": "300",
+      "voted": "300",
+      "correct": true,
+      "all_votes": [
+        "300",
+        "300"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01251",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00439",
+      "gold": "17",
+      "voted": "5",
+      "correct": false,
+      "all_votes": [
+        "5",
+        "11"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00491",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00856",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00547",
+      "gold": "81",
+      "voted": "81",
+      "correct": true,
+      "all_votes": [
+        "81",
+        "81"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01224",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00346",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00655",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01188",
+      "gold": "24",
+      "voted": "24",
+      "correct": true,
+      "all_votes": [
+        "24",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00272",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00231",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00578",
+      "gold": "48",
+      "voted": "48",
+      "correct": true,
+      "all_votes": [
+        "48",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00113",
+      "gold": "25",
+      "voted": "25",
+      "correct": true,
+      "all_votes": [
+        "25",
+        "25"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01245",
+      "gold": "96",
+      "voted": "96",
+      "correct": true,
+      "all_votes": [
+        "96",
+        "96"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00999",
+      "gold": "25",
+      "voted": "133.33",
+      "correct": false,
+      "all_votes": [
+        "133.33",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00844",
+      "gold": "180",
+      "voted": "180",
+      "correct": true,
+      "all_votes": [
+        "180",
+        "150"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01150",
+      "gold": "21",
+      "voted": "21",
+      "correct": true,
+      "all_votes": [
+        "21",
+        "21"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01194",
+      "gold": "1200",
+      "voted": "1200",
+      "correct": true,
+      "all_votes": [
+        "1200",
+        "1200"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00073",
+      "gold": "255",
+      "voted": "255",
+      "correct": true,
+      "all_votes": [
+        "255",
+        "255"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00628",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00773",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00910",
+      "gold": "700",
+      "voted": "700",
+      "correct": true,
+      "all_votes": [
+        "700",
+        "700"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01108",
+      "gold": "38",
+      "voted": "38",
+      "correct": true,
+      "all_votes": [
+        "38",
+        "38."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01135",
+      "gold": "32",
+      "voted": "32",
+      "correct": true,
+      "all_votes": [
+        "32",
+        "32"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00967",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00160",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00585",
+      "gold": "40",
+      "voted": "40",
+      "correct": true,
+      "all_votes": [
+        "40",
+        "40"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01210",
+      "gold": "288",
+      "voted": "288",
+      "correct": true,
+      "all_votes": [
+        "288",
+        "288"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00745",
+      "gold": "1100",
+      "voted": "1100",
+      "correct": true,
+      "all_votes": [
+        "1100",
+        "500."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01281",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00328",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00796",
+      "gold": "2880000",
+      "voted": "2640000",
+      "correct": false,
+      "all_votes": [
+        "2640000",
+        "3120000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00524",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00874",
+      "gold": "132",
+      "voted": "132",
+      "correct": true,
+      "all_votes": [
+        "132",
+        "132"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01172",
+      "gold": "93",
+      "voted": "93",
+      "correct": true,
+      "all_votes": [
+        "93",
+        "93"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00738",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01072",
+      "gold": "85",
+      "voted": "85",
+      "correct": true,
+      "all_votes": [
+        "85",
+        "210"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00615",
+      "gold": "33",
+      "voted": "33",
+      "correct": true,
+      "all_votes": [
+        "33",
+        "33.00"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00845",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01259",
+      "gold": "7200",
+      "voted": "7200",
+      "correct": true,
+      "all_votes": [
+        "7200",
+        "200"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00875",
+      "gold": "60",
+      "voted": "60",
+      "correct": true,
+      "all_votes": [
+        "60",
+        "60"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00661",
+      "gold": "44",
+      "voted": "56",
+      "correct": false,
+      "all_votes": [
+        "56",
+        "44"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01102",
+      "gold": "113",
+      "voted": "113",
+      "correct": true,
+      "all_votes": [
+        "113",
+        "113"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00640",
+      "gold": "43500",
+      "voted": "43500",
+      "correct": true,
+      "all_votes": [
+        "43500",
+        "43500"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00134",
+      "gold": "720",
+      "voted": "720",
+      "correct": true,
+      "all_votes": [
+        "720",
+        "720"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00188",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00112",
+      "gold": "24",
+      "voted": "24",
+      "correct": true,
+      "all_votes": [
+        "24",
+        "24"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00751",
+      "gold": "43",
+      "voted": "43.",
+      "correct": true,
+      "all_votes": [
+        "43.",
+        "43"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00612",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01301",
+      "gold": "23",
+      "voted": "23",
+      "correct": true,
+      "all_votes": [
+        "23",
+        "17"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01071",
+      "gold": "251",
+      "voted": "251",
+      "correct": true,
+      "all_votes": [
+        "251",
+        "251"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00032",
+      "gold": "35",
+      "voted": "35",
+      "correct": true,
+      "all_votes": [
+        "35",
+        "70"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00943",
+      "gold": "50",
+      "voted": "15",
+      "correct": false,
+      "all_votes": [
+        "15",
+        "95"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00126",
+      "gold": "82",
+      "voted": "82",
+      "correct": true,
+      "all_votes": [
+        "82",
+        "82"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00651",
+      "gold": "2100",
+      "voted": "700",
+      "correct": false,
+      "all_votes": [
+        "700",
+        "1800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01014",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01163",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00846",
+      "gold": "11",
+      "voted": "11",
+      "correct": true,
+      "all_votes": [
+        "11",
+        "11"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00097",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00510",
+      "gold": "525",
+      "voted": "4976.5625",
+      "correct": false,
+      "all_votes": [
+        "4976.5625",
+        "583"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00121",
+      "gold": "27",
+      "voted": "27",
+      "correct": true,
+      "all_votes": [
+        "27",
+        "27"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00190",
+      "gold": "360",
+      "voted": "360",
+      "correct": true,
+      "all_votes": [
+        "360",
+        "360"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00990",
+      "gold": "14",
+      "voted": "14",
+      "correct": true,
+      "all_votes": [
+        "14",
+        "14"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00011",
+      "gold": "694",
+      "voted": "794",
+      "correct": false,
+      "all_votes": [
+        "794",
+        "686"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00914",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01107",
+      "gold": "360",
+      "voted": "240",
+      "correct": false,
+      "all_votes": [
+        "240",
+        "360"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00298",
+      "gold": "500",
+      "voted": "1200",
+      "correct": false,
+      "all_votes": [
+        "1200",
+        "350"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00886",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01246",
+      "gold": "3360",
+      "voted": "3360",
+      "correct": true,
+      "all_votes": [
+        "3360",
+        "3360."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00540",
+      "gold": "39",
+      "voted": "39",
+      "correct": true,
+      "all_votes": [
+        "39",
+        "39."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00982",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00581",
+      "gold": "215",
+      "voted": "215",
+      "correct": true,
+      "all_votes": [
+        "215",
+        "215"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00783",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00673",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01238",
+      "gold": "520",
+      "voted": "520",
+      "correct": true,
+      "all_votes": [
+        "520",
+        "520"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00261",
+      "gold": "62",
+      "voted": "62",
+      "correct": true,
+      "all_votes": [
+        "62",
+        "155"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00531",
+      "gold": "66",
+      "voted": "66",
+      "correct": true,
+      "all_votes": [
+        "66",
+        "66"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01167",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00983",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01110",
+      "gold": "60",
+      "voted": "60",
+      "correct": true,
+      "all_votes": [
+        "60",
+        "60"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00580",
+      "gold": "500",
+      "voted": "500",
+      "correct": true,
+      "all_votes": [
+        "500",
+        "603.2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00901",
+      "gold": "1",
+      "voted": "2.5",
+      "correct": false,
+      "all_votes": [
+        "2.5",
+        "4.5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00942",
+      "gold": "205",
+      "voted": "178.75",
+      "correct": false,
+      "all_votes": [
+        "178.75",
+        "178.75"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00681",
+      "gold": "298",
+      "voted": "302",
+      "correct": false,
+      "all_votes": [
+        "302",
+        "308"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00526",
+      "gold": "21",
+      "voted": "494",
+      "correct": false,
+      "all_votes": [
+        "494",
+        "147"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00125",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00423",
+      "gold": "8",
+      "voted": "-6",
+      "correct": false,
+      "all_votes": [
+        "-6",
+        "13"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01026",
+      "gold": "43200",
+      "voted": "21600",
+      "correct": false,
+      "all_votes": [
+        "21600",
+        "21600"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00888",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00214",
+      "gold": "8",
+      "voted": "32",
+      "correct": false,
+      "all_votes": [
+        "32",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01215",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "432"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00978",
+      "gold": "160",
+      "voted": "160",
+      "correct": true,
+      "all_votes": [
+        "160",
+        "160."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00498",
+      "gold": "40",
+      "voted": "40",
+      "correct": true,
+      "all_votes": [
+        "40",
+        "40"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01070",
+      "gold": "18",
+      "voted": "18",
+      "correct": true,
+      "all_votes": [
+        "18",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00525",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00068",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "36"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01148",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00818",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "48"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00828",
+      "gold": "60",
+      "voted": "60",
+      "correct": true,
+      "all_votes": [
+        "60",
+        "60"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00402",
+      "gold": "4",
+      "voted": "5",
+      "correct": false,
+      "all_votes": [
+        "5",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00771",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00202",
+      "gold": "100",
+      "voted": "100",
+      "correct": true,
+      "all_votes": [
+        "100",
+        "100"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01288",
+      "gold": "34",
+      "voted": "1320",
+      "correct": false,
+      "all_votes": [
+        "1320",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01075",
+      "gold": "16",
+      "voted": "25",
+      "correct": false,
+      "all_votes": [
+        "25",
+        "40"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00522",
+      "gold": "29",
+      "voted": "29",
+      "correct": true,
+      "all_votes": [
+        "29",
+        "29"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00894",
+      "gold": "26",
+      "voted": "40",
+      "correct": false,
+      "all_votes": [
+        "40",
+        "74"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00034",
+      "gold": "23",
+      "voted": "23",
+      "correct": true,
+      "all_votes": [
+        "23",
+        "23"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01129",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "14"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01147",
+      "gold": "22",
+      "voted": "22",
+      "correct": true,
+      "all_votes": [
+        "22",
+        "22"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01056",
+      "gold": "156",
+      "voted": "1040",
+      "correct": false,
+      "all_votes": [
+        "1040",
+        "156"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00153",
+      "gold": "48",
+      "voted": "3",
+      "correct": false,
+      "all_votes": [
+        "3",
+        "35"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00235",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00048",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00492",
+      "gold": "32",
+      "voted": "32",
+      "correct": true,
+      "all_votes": [
+        "32",
+        "32"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00871",
+      "gold": "48",
+      "voted": "48",
+      "correct": true,
+      "all_votes": [
+        "48",
+        "48"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00869",
+      "gold": "500",
+      "voted": "500",
+      "correct": true,
+      "all_votes": [
+        "500",
+        "500"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01004",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00241",
+      "gold": "6",
+      "voted": "6",
+      "correct": true,
+      "all_votes": [
+        "6",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00489",
+      "gold": "-10",
+      "voted": "-10",
+      "correct": true,
+      "all_votes": [
+        "-10",
+        "-9.67"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00212",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00536",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00887",
+      "gold": "34",
+      "voted": "34",
+      "correct": true,
+      "all_votes": [
+        "34",
+        "34"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00587",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01091",
+      "gold": "1000",
+      "voted": "1000",
+      "correct": true,
+      "all_votes": [
+        "1000",
+        "1000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00078",
+      "gold": "6",
+      "voted": "6",
+      "correct": true,
+      "all_votes": [
+        "6",
+        "1.5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00427",
+      "gold": "150",
+      "voted": "49",
+      "correct": false,
+      "all_votes": [
+        "49",
+        "49"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00455",
+      "gold": "1920",
+      "voted": "1920",
+      "correct": true,
+      "all_votes": [
+        "1920",
+        "1920"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00367",
+      "gold": "19",
+      "voted": "19",
+      "correct": true,
+      "all_votes": [
+        "19",
+        "19"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01179",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00750",
+      "gold": "4000",
+      "voted": "4000",
+      "correct": true,
+      "all_votes": [
+        "4000",
+        "4000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00974",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00473",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00981",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01049",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00395",
+      "gold": "38",
+      "voted": "38",
+      "correct": true,
+      "all_votes": [
+        "38",
+        "96"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01128",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00062",
+      "gold": "25000",
+      "voted": "11250",
+      "correct": false,
+      "all_votes": [
+        "11250",
+        "525000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00583",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00576",
+      "gold": "11232",
+      "voted": "11292",
+      "correct": false,
+      "all_votes": [
+        "11292",
+        "324"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00807",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00067",
+      "gold": "595",
+      "voted": "595",
+      "correct": true,
+      "all_votes": [
+        "595",
+        "595"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00898",
+      "gold": "110",
+      "voted": "110",
+      "correct": true,
+      "all_votes": [
+        "110",
+        "110"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00631",
+      "gold": "4800",
+      "voted": "4800",
+      "correct": true,
+      "all_votes": [
+        "4800",
+        "4800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01198",
+      "gold": "140",
+      "voted": "140",
+      "correct": true,
+      "all_votes": [
+        "140",
+        "140"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01007",
+      "gold": "34",
+      "voted": "34",
+      "correct": true,
+      "all_votes": [
+        "34",
+        "34"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00726",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00721",
+      "gold": "2450",
+      "voted": "2600",
+      "correct": false,
+      "all_votes": [
+        "2600",
+        "2450"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00185",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "30"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00325",
+      "gold": "224000",
+      "voted": "224000",
+      "correct": true,
+      "all_votes": [
+        "224000",
+        "224000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01204",
+      "gold": "168",
+      "voted": "224",
+      "correct": false,
+      "all_votes": [
+        "224",
+        "168"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00512",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01240",
+      "gold": "2",
+      "voted": "3",
+      "correct": false,
+      "all_votes": [
+        "3",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00804",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00277",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00784",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00263",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00571",
+      "gold": "308",
+      "voted": "308",
+      "correct": true,
+      "all_votes": [
+        "308",
+        "308"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00059",
+      "gold": "187",
+      "voted": "187",
+      "correct": true,
+      "all_votes": [
+        "187",
+        "187."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00852",
+      "gold": "123",
+      "voted": "123",
+      "correct": true,
+      "all_votes": [
+        "123",
+        "123"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01303",
+      "gold": "4",
+      "voted": "7",
+      "correct": false,
+      "all_votes": [
+        "7",
+        "8."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00763",
+      "gold": "100",
+      "voted": "166.67",
+      "correct": false,
+      "all_votes": [
+        "166.67",
+        "200"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00829",
+      "gold": "14000",
+      "voted": "14000",
+      "correct": true,
+      "all_votes": [
+        "14000",
+        "14000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00515",
+      "gold": "160",
+      "voted": "288",
+      "correct": false,
+      "all_votes": [
+        "288",
+        "288"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00018",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01097",
+      "gold": "480",
+      "voted": "480",
+      "correct": true,
+      "all_votes": [
+        "480",
+        "480"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01313",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00354",
+      "gold": "45",
+      "voted": "125",
+      "correct": false,
+      "all_votes": [
+        "125",
+        "235"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01060",
+      "gold": "31",
+      "voted": "31",
+      "correct": true,
+      "all_votes": [
+        "31",
+        "31"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00210",
+      "gold": "10",
+      "voted": "12.5",
+      "correct": false,
+      "all_votes": [
+        "12.5",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00168",
+      "gold": "18",
+      "voted": "18",
+      "correct": true,
+      "all_votes": [
+        "18",
+        "18"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01185",
+      "gold": "6",
+      "voted": "6",
+      "correct": true,
+      "all_votes": [
+        "6",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00613",
+      "gold": "93000",
+      "voted": "93000",
+      "correct": true,
+      "all_votes": [
+        "93000",
+        "93000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01048",
+      "gold": "7400",
+      "voted": "9860.78",
+      "correct": false,
+      "all_votes": [
+        "9860.78",
+        "9860.98"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00170",
+      "gold": "150",
+      "voted": "150",
+      "correct": true,
+      "all_votes": [
+        "150",
+        "150"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00485",
+      "gold": "220",
+      "voted": "220",
+      "correct": true,
+      "all_votes": [
+        "220",
+        "220"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00790",
+      "gold": "108",
+      "voted": "12",
+      "correct": false,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00462",
+      "gold": "71",
+      "voted": "71",
+      "correct": true,
+      "all_votes": [
+        "71",
+        "71"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01002",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00780",
+      "gold": "25",
+      "voted": "150",
+      "correct": false,
+      "all_votes": [
+        "150",
+        "195"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00667",
+      "gold": "53",
+      "voted": "53",
+      "correct": true,
+      "all_votes": [
+        "53",
+        "53"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00299",
+      "gold": "31800",
+      "voted": "7800",
+      "correct": false,
+      "all_votes": [
+        "7800",
+        "31800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00092",
+      "gold": "4",
+      "voted": "4",
+      "correct": true,
+      "all_votes": [
+        "4",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01262",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00714",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00702",
+      "gold": "2800",
+      "voted": "2800",
+      "correct": true,
+      "all_votes": [
+        "2800",
+        "2800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00823",
+      "gold": "14",
+      "voted": "22",
+      "correct": false,
+      "all_votes": [
+        "22",
+        "18"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00089",
+      "gold": "24",
+      "voted": "18",
+      "correct": false,
+      "all_votes": [
+        "18",
+        "18"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01016",
+      "gold": "138",
+      "voted": "139",
+      "correct": false,
+      "all_votes": [
+        "139",
+        "139"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00575",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "36."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00988",
+      "gold": "6",
+      "voted": "0",
+      "correct": false,
+      "all_votes": [
+        "0",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00917",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00300",
+      "gold": "78",
+      "voted": "78",
+      "correct": true,
+      "all_votes": [
+        "78",
+        "78"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00294",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00779",
+      "gold": "255",
+      "voted": "330",
+      "correct": false,
+      "all_votes": [
+        "330",
+        "380"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00046",
+      "gold": "163",
+      "voted": "23",
+      "correct": false,
+      "all_votes": [
+        "23",
+        "57"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01290",
+      "gold": "90",
+      "voted": "90",
+      "correct": true,
+      "all_votes": [
+        "90",
+        "90"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01218",
+      "gold": "225",
+      "voted": "180",
+      "correct": false,
+      "all_votes": [
+        "180",
+        "180"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01003",
+      "gold": "480",
+      "voted": "480",
+      "correct": true,
+      "all_votes": [
+        "480",
+        "480"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00950",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00221",
+      "gold": "90",
+      "voted": "90",
+      "correct": true,
+      "all_votes": [
+        "90",
+        "90"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00605",
+      "gold": "42",
+      "voted": "42",
+      "correct": true,
+      "all_votes": [
+        "42",
+        "42"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01076",
+      "gold": "162",
+      "voted": "162",
+      "correct": true,
+      "all_votes": [
+        "162",
+        "162"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00803",
+      "gold": "9",
+      "voted": "9",
+      "correct": true,
+      "all_votes": [
+        "9",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00494",
+      "gold": "21",
+      "voted": "39.75",
+      "correct": false,
+      "all_votes": [
+        "39.75",
+        "5.3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00252",
+      "gold": "73",
+      "voted": "73",
+      "correct": true,
+      "all_votes": [
+        "73",
+        "67"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00857",
+      "gold": "14000",
+      "voted": "14000",
+      "correct": true,
+      "all_votes": [
+        "14000",
+        "22000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00256",
+      "gold": "45",
+      "voted": "45",
+      "correct": true,
+      "all_votes": [
+        "45",
+        "45"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01045",
+      "gold": "420",
+      "voted": "420",
+      "correct": true,
+      "all_votes": [
+        "420",
+        "420"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01256",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01254",
+      "gold": "30",
+      "voted": "30",
+      "correct": true,
+      "all_votes": [
+        "30",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00239",
+      "gold": "280",
+      "voted": "280",
+      "correct": true,
+      "all_votes": [
+        "280",
+        "280"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00733",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00700",
+      "gold": "135",
+      "voted": "135",
+      "correct": true,
+      "all_votes": [
+        "135",
+        "135"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00381",
+      "gold": "67",
+      "voted": "67",
+      "correct": true,
+      "all_votes": [
+        "67",
+        "67"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00822",
+      "gold": "1260",
+      "voted": "1260",
+      "correct": true,
+      "all_votes": [
+        "1260",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00386",
+      "gold": "80",
+      "voted": "60",
+      "correct": false,
+      "all_votes": [
+        "60",
+        "79.6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00157",
+      "gold": "80",
+      "voted": "2862",
+      "correct": false,
+      "all_votes": [
+        "2862",
+        "80"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00084",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01174",
+      "gold": "240",
+      "voted": "240",
+      "correct": true,
+      "all_votes": [
+        "240",
+        "240"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00376",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00072",
+      "gold": "221",
+      "voted": "221",
+      "correct": true,
+      "all_votes": [
+        "221",
+        "221"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01106",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00960",
+      "gold": "11",
+      "voted": "11",
+      "correct": true,
+      "all_votes": [
+        "11",
+        "9"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00331",
+      "gold": "8400",
+      "voted": "8400",
+      "correct": true,
+      "all_votes": [
+        "8400",
+        "400"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00419",
+      "gold": "3000",
+      "voted": "3000",
+      "correct": true,
+      "all_votes": [
+        "3000",
+        "4000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01283",
+      "gold": "60",
+      "voted": "60",
+      "correct": true,
+      "all_votes": [
+        "60",
+        "60"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01006",
+      "gold": "826",
+      "voted": "1047.20",
+      "correct": false,
+      "all_votes": [
+        "1047.20",
+        "826"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01181",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "30.5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00101",
+      "gold": "6",
+      "voted": "9.75",
+      "correct": false,
+      "all_votes": [
+        "9.75",
+        "8.5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01027",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00893",
+      "gold": "480",
+      "voted": "480",
+      "correct": true,
+      "all_votes": [
+        "480",
+        "480"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00401",
+      "gold": "14400",
+      "voted": "14400",
+      "correct": true,
+      "all_votes": [
+        "14400",
+        "4800"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00659",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01058",
+      "gold": "250",
+      "voted": "350",
+      "correct": false,
+      "all_votes": [
+        "350",
+        "250"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00708",
+      "gold": "168",
+      "voted": "168",
+      "correct": true,
+      "all_votes": [
+        "168",
+        "168"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00935",
+      "gold": "64800",
+      "voted": "64800",
+      "correct": true,
+      "all_votes": [
+        "64800",
+        "6480"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00508",
+      "gold": "120",
+      "voted": "120",
+      "correct": true,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01095",
+      "gold": "270",
+      "voted": "270",
+      "correct": true,
+      "all_votes": [
+        "270",
+        "270"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00482",
+      "gold": "26",
+      "voted": "26",
+      "correct": true,
+      "all_votes": [
+        "26",
+        "26"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00361",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00147",
+      "gold": "75",
+      "voted": "135",
+      "correct": false,
+      "all_votes": [
+        "135",
+        "45"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01041",
+      "gold": "101",
+      "voted": "101",
+      "correct": true,
+      "all_votes": [
+        "101",
+        "101"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00016",
+      "gold": "230",
+      "voted": "310",
+      "correct": false,
+      "all_votes": [
+        "310",
+        "230"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00624",
+      "gold": "85",
+      "voted": "85",
+      "correct": true,
+      "all_votes": [
+        "85",
+        "85"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00711",
+      "gold": "6",
+      "voted": "6",
+      "correct": true,
+      "all_votes": [
+        "6",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00304",
+      "gold": "3200",
+      "voted": "1700",
+      "correct": false,
+      "all_votes": [
+        "1700",
+        "2300"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00513",
+      "gold": "300",
+      "voted": "300",
+      "correct": true,
+      "all_votes": [
+        "300",
+        "300"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01228",
+      "gold": "31",
+      "voted": "31",
+      "correct": true,
+      "all_votes": [
+        "31",
+        "31"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01282",
+      "gold": "12",
+      "voted": "16",
+      "correct": false,
+      "all_votes": [
+        "16",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01001",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00396",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00038",
+      "gold": "10",
+      "voted": "11.43",
+      "correct": false,
+      "all_votes": [
+        "11.43",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00560",
+      "gold": "45",
+      "voted": "45",
+      "correct": true,
+      "all_votes": [
+        "45",
+        "45"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01028",
+      "gold": "200",
+      "voted": "200",
+      "correct": true,
+      "all_votes": [
+        "200",
+        "100"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00122",
+      "gold": "48",
+      "voted": "69",
+      "correct": false,
+      "all_votes": [
+        "69",
+        "34"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00080",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00739",
+      "gold": "98",
+      "voted": "98",
+      "correct": true,
+      "all_votes": [
+        "98",
+        "98"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01169",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01017",
+      "gold": "45",
+      "voted": "5",
+      "correct": false,
+      "all_votes": [
+        "5",
+        "45"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00912",
+      "gold": "6",
+      "voted": "6",
+      "correct": true,
+      "all_votes": [
+        "6",
+        "7.5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00320",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00991",
+      "gold": "15",
+      "voted": "165",
+      "correct": false,
+      "all_votes": [
+        "165",
+        "90"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00557",
+      "gold": "70",
+      "voted": "70",
+      "correct": true,
+      "all_votes": [
+        "70",
+        "70"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00050",
+      "gold": "294",
+      "voted": "294",
+      "correct": true,
+      "all_votes": [
+        "294",
+        "294"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01227",
+      "gold": "66",
+      "voted": "66",
+      "correct": true,
+      "all_votes": [
+        "66",
+        "66"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00872",
+      "gold": "13",
+      "voted": "13",
+      "correct": true,
+      "all_votes": [
+        "13",
+        "13"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01081",
+      "gold": "195",
+      "voted": "195",
+      "correct": true,
+      "all_votes": [
+        "195",
+        "195"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00755",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "7"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01009",
+      "gold": "1875",
+      "voted": "1875",
+      "correct": true,
+      "all_votes": [
+        "1875",
+        "1125"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00715",
+      "gold": "385000",
+      "voted": "385000",
+      "correct": true,
+      "all_votes": [
+        "385000",
+        "000."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00762",
+      "gold": "85",
+      "voted": "85",
+      "correct": true,
+      "all_votes": [
+        "85",
+        "85"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00697",
+      "gold": "27",
+      "voted": "27",
+      "correct": true,
+      "all_votes": [
+        "27",
+        "27"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00937",
+      "gold": "159",
+      "voted": "159",
+      "correct": true,
+      "all_votes": [
+        "159",
+        "99"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00883",
+      "gold": "25",
+      "voted": "25",
+      "correct": true,
+      "all_votes": [
+        "25",
+        "25"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00820",
+      "gold": "720",
+      "voted": "720",
+      "correct": true,
+      "all_votes": [
+        "720",
+        "720"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00831",
+      "gold": "324",
+      "voted": "324",
+      "correct": true,
+      "all_votes": [
+        "324",
+        "399"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00959",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "14"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00397",
+      "gold": "25",
+      "voted": "25",
+      "correct": true,
+      "all_votes": [
+        "25",
+        "25"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00115",
+      "gold": "90",
+      "voted": "90",
+      "correct": true,
+      "all_votes": [
+        "90",
+        "260"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00839",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "4"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00404",
+      "gold": "22",
+      "voted": "22",
+      "correct": true,
+      "all_votes": [
+        "22",
+        "23.3333"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00483",
+      "gold": "40",
+      "voted": "40",
+      "correct": true,
+      "all_votes": [
+        "40",
+        "40"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00310",
+      "gold": "2050",
+      "voted": "2050",
+      "correct": true,
+      "all_votes": [
+        "2050",
+        "2050"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00213",
+      "gold": "250",
+      "voted": "250",
+      "correct": true,
+      "all_votes": [
+        "250",
+        "250."
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00880",
+      "gold": "10",
+      "voted": "1",
+      "correct": false,
+      "all_votes": [
+        "1",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01021",
+      "gold": "36",
+      "voted": "36",
+      "correct": true,
+      "all_votes": [
+        "36",
+        "33"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00060",
+      "gold": "17",
+      "voted": "17",
+      "correct": true,
+      "all_votes": [
+        "17",
+        "18"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00809",
+      "gold": "50",
+      "voted": "50",
+      "correct": true,
+      "all_votes": [
+        "50",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01131",
+      "gold": "96",
+      "voted": "96",
+      "correct": true,
+      "all_votes": [
+        "96",
+        "96"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00155",
+      "gold": "280",
+      "voted": "160",
+      "correct": false,
+      "all_votes": [
+        "160",
+        "280"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00979",
+      "gold": "50",
+      "voted": "55",
+      "correct": false,
+      "all_votes": [
+        "55",
+        "50"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00786",
+      "gold": "142",
+      "voted": "142",
+      "correct": true,
+      "all_votes": [
+        "142",
+        "142"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00076",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01065",
+      "gold": "95",
+      "voted": "95",
+      "correct": true,
+      "all_votes": [
+        "95",
+        "95"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00719",
+      "gold": "175",
+      "voted": "175",
+      "correct": true,
+      "all_votes": [
+        "175",
+        "175"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00975",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01051",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00295",
+      "gold": "370",
+      "voted": "370",
+      "correct": true,
+      "all_votes": [
+        "370",
+        "370"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00037",
+      "gold": "2",
+      "voted": "15",
+      "correct": false,
+      "all_votes": [
+        "15",
+        "13"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00459",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00205",
+      "gold": "98",
+      "voted": "191",
+      "correct": false,
+      "all_votes": [
+        "191",
+        "93"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00033",
+      "gold": "70",
+      "voted": "70",
+      "correct": true,
+      "all_votes": [
+        "70",
+        "70"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00420",
+      "gold": "17000",
+      "voted": "17000",
+      "correct": true,
+      "all_votes": [
+        "17000",
+        "17000"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00058",
+      "gold": "57",
+      "voted": "57",
+      "correct": true,
+      "all_votes": [
+        "57",
+        "34.40"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00603",
+      "gold": "1800",
+      "voted": "1260",
+      "correct": false,
+      "all_votes": [
+        "1260",
+        "1260"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00816",
+      "gold": "4500",
+      "voted": "4500",
+      "correct": true,
+      "all_votes": [
+        "4500",
+        "4500"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00602",
+      "gold": "5",
+      "voted": "5",
+      "correct": true,
+      "all_votes": [
+        "5",
+        "5"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00665",
+      "gold": "360",
+      "voted": "360",
+      "correct": true,
+      "all_votes": [
+        "360",
+        "360"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01159",
+      "gold": "50",
+      "voted": "100",
+      "correct": false,
+      "all_votes": [
+        "100",
+        "75"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00174",
+      "gold": "95",
+      "voted": "95",
+      "correct": true,
+      "all_votes": [
+        "95",
+        "95"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00654",
+      "gold": "2",
+      "voted": "2",
+      "correct": true,
+      "all_votes": [
+        "2",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01042",
+      "gold": "3",
+      "voted": "10.8333",
+      "correct": false,
+      "all_votes": [
+        "10.8333",
+        "6.1667"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00690",
+      "gold": "5760",
+      "voted": "5760",
+      "correct": true,
+      "all_votes": [
+        "5760",
+        "5760"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01121",
+      "gold": "35",
+      "voted": "35",
+      "correct": true,
+      "all_votes": [
+        "35",
+        "35"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00782",
+      "gold": "54",
+      "voted": "21",
+      "correct": false,
+      "all_votes": [
+        "21",
+        "27"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00662",
+      "gold": "7",
+      "voted": "7",
+      "correct": true,
+      "all_votes": [
+        "7",
+        "8.00"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00860",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00963",
+      "gold": "147",
+      "voted": "147",
+      "correct": true,
+      "all_votes": [
+        "147",
+        "376"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01120",
+      "gold": "560",
+      "voted": "280",
+      "correct": false,
+      "all_votes": [
+        "280",
+        "140"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00385",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00842",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "10"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01289",
+      "gold": "101",
+      "voted": "101",
+      "correct": true,
+      "all_votes": [
+        "101",
+        "91"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01087",
+      "gold": "12",
+      "voted": "24",
+      "correct": false,
+      "all_votes": [
+        "24",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01015",
+      "gold": "78",
+      "voted": "78",
+      "correct": true,
+      "all_votes": [
+        "78",
+        "1.3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00149",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00699",
+      "gold": "8",
+      "voted": "8",
+      "correct": true,
+      "all_votes": [
+        "8",
+        "8"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01084",
+      "gold": "20",
+      "voted": "80",
+      "correct": false,
+      "all_votes": [
+        "80",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01192",
+      "gold": "280",
+      "voted": "77.5",
+      "correct": false,
+      "all_votes": [
+        "77.5",
+        "310"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01046",
+      "gold": "189",
+      "voted": "47.625",
+      "correct": false,
+      "all_votes": [
+        "47.625",
+        "32"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01123",
+      "gold": "105",
+      "voted": "105",
+      "correct": true,
+      "all_votes": [
+        "105",
+        "105"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00903",
+      "gold": "16",
+      "voted": "16",
+      "correct": true,
+      "all_votes": [
+        "16",
+        "16"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00913",
+      "gold": "6",
+      "voted": "6",
+      "correct": true,
+      "all_votes": [
+        "6",
+        "6"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00007",
+      "gold": "160",
+      "voted": "120",
+      "correct": false,
+      "all_votes": [
+        "120",
+        "120"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00716",
+      "gold": "770",
+      "voted": "1410",
+      "correct": false,
+      "all_votes": [
+        "1410",
+        "770"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00091",
+      "gold": "28",
+      "voted": "28",
+      "correct": true,
+      "all_votes": [
+        "28",
+        "28"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00184",
+      "gold": "25",
+      "voted": "25",
+      "correct": true,
+      "all_votes": [
+        "25",
+        "33.33"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01050",
+      "gold": "655",
+      "voted": "655",
+      "correct": true,
+      "all_votes": [
+        "655",
+        "1630"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01053",
+      "gold": "55",
+      "voted": "55",
+      "correct": true,
+      "all_votes": [
+        "55",
+        "55"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00099",
+      "gold": "58",
+      "voted": "40",
+      "correct": false,
+      "all_votes": [
+        "40",
+        "40"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00426",
+      "gold": "11",
+      "voted": "11",
+      "correct": true,
+      "all_votes": [
+        "11",
+        "11"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01162",
+      "gold": "3",
+      "voted": "3",
+      "correct": true,
+      "all_votes": [
+        "3",
+        "3"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00144",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00660",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00951",
+      "gold": "300",
+      "voted": "150",
+      "correct": false,
+      "all_votes": [
+        "150",
+        "150"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01276",
+      "gold": "70",
+      "voted": "70",
+      "correct": true,
+      "all_votes": [
+        "70",
+        "70"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00520",
+      "gold": "63",
+      "voted": "342",
+      "correct": false,
+      "all_votes": [
+        "342",
+        "63"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01066",
+      "gold": "14",
+      "voted": "14",
+      "correct": true,
+      "all_votes": [
+        "14",
+        "14"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00684",
+      "gold": "11",
+      "voted": "11",
+      "correct": true,
+      "all_votes": [
+        "11",
+        "11"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00825",
+      "gold": "153",
+      "voted": "153",
+      "correct": true,
+      "all_votes": [
+        "153",
+        "153"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00933",
+      "gold": "15",
+      "voted": "15",
+      "correct": true,
+      "all_votes": [
+        "15",
+        "15"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01077",
+      "gold": "145",
+      "voted": "60",
+      "correct": false,
+      "all_votes": [
+        "60",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00568",
+      "gold": "175",
+      "voted": "175",
+      "correct": true,
+      "all_votes": [
+        "175",
+        "175"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00962",
+      "gold": "1000",
+      "voted": "600",
+      "correct": false,
+      "all_votes": [
+        "600",
+        "600"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01216",
+      "gold": "20",
+      "voted": "20",
+      "correct": true,
+      "all_votes": [
+        "20",
+        "20"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00390",
+      "gold": "12",
+      "voted": "12",
+      "correct": true,
+      "all_votes": [
+        "12",
+        "12"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00732",
+      "gold": "87",
+      "voted": "87",
+      "correct": true,
+      "all_votes": [
+        "87",
+        "87"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00554",
+      "gold": "54",
+      "voted": "54",
+      "correct": true,
+      "all_votes": [
+        "54",
+        "54"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_01047",
+      "gold": "10",
+      "voted": "10",
+      "correct": true,
+      "all_votes": [
+        "10",
+        "2"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    },
+    {
+      "id": "gsm8k_en_test_00503",
+      "gold": "18",
+      "voted": "18",
+      "correct": true,
+      "all_votes": [
+        "18",
+        "18"
+      ],
+      "setups": [
+        "soup_bcdef",
+        "c"
+      ]
+    }
+  ]
+}

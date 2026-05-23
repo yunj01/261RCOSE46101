@@ -1,0 +1,12 @@
+{
+  "f_hrm8k": {
+    "accuracy": 59.2,
+    "correct": 296,
+    "total": 500
+  },
+  "f_gsm8k": {
+    "accuracy": 66.2,
+    "correct": 331,
+    "total": 500
+  }
+}
