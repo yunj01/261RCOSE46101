@@ -1,16 +1,16 @@
 """
-Phase 4: LoRA SFT for the 5 setups.
+LoRA SFT for the 5 setups (DALR pipeline).
 
 Setups:
-  b   = English CoT FT             (lr=2e-4, 3ep, base)
-  c   = Korean CoT FT              (lr=2e-4, 3ep, base)
-  d   = Bilingual Mix FT           (lr=2e-4, 3ep, base)
-  e1  = Setup E Stage 1 (English)  (lr=2e-4, 3ep, base)
-  e2  = Setup E Stage 2 (Ko+10%EN) (lr=5e-5, 2ep, resume from e1)
+  b         = English CoT FT                       (lr=2e-4, 3ep)
+  c         = Korean CoT FT                        (lr=2e-4, 3ep)
+  d         = Bilingual Mix FT (50/50)             (lr=2e-4, 3ep)
+  e         = DALR: KO + EN bridge on hard cases   (lr=2e-4, 3ep)
+  e_random  = DALR ablation: EN on random easy     (lr=2e-4, 3ep)
 
 Usage:
   python -m src.train.sft --setup b
-  python -m src.train.sft --setup e2 --resume_from weights/setup_e_stage1
+  python -m src.train.sft --setup e
 """
 
 # Unsloth must be imported BEFORE transformers/peft/trl
@@ -37,13 +37,11 @@ LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj",
                 "gate_proj", "up_proj", "down_proj"]
 
 SETUP_CONFIG = {
-    "b":  {"file": "setup_b_english_cot.jsonl",                "epochs": 3, "lr": 2e-4, "out": "setup_b"},
-    "c":  {"file": "setup_c_korean_cot.jsonl",                 "epochs": 3, "lr": 2e-4, "out": "setup_c"},
-    "d":  {"file": "setup_d_bilingual_mix.jsonl",              "epochs": 3, "lr": 2e-4, "out": "setup_d"},
-    "e1": {"file": "setup_e_stage1_english.jsonl",             "epochs": 3, "lr": 2e-4, "out": "setup_e_stage1"},
-    "e2": {"file": "setup_e_stage2_korean_with_replay.jsonl",  "epochs": 2, "lr": 5e-5, "out": "setup_e_final"},
-    "f":  {"file": "setup_f_dalr.jsonl",                       "epochs": 3, "lr": 2e-4, "out": "setup_f"},
-    "f_random": {"file": "setup_f_random.jsonl",               "epochs": 3, "lr": 2e-4, "out": "setup_f_random"},
+    "b":        {"file": "setup_b_english_cot.jsonl",  "epochs": 3, "lr": 2e-4, "out": "setup_b"},
+    "c":        {"file": "setup_c_korean_cot.jsonl",   "epochs": 3, "lr": 2e-4, "out": "setup_c"},
+    "d":        {"file": "setup_d_bilingual_mix.jsonl","epochs": 3, "lr": 2e-4, "out": "setup_d"},
+    "e":        {"file": "setup_e_dalr.jsonl",         "epochs": 3, "lr": 2e-4, "out": "setup_e"},
+    "e_random": {"file": "setup_e_random.jsonl",       "epochs": 3, "lr": 2e-4, "out": "setup_e_random"},
 }
 
 
@@ -76,7 +74,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--setup", required=True, choices=list(SETUP_CONFIG.keys()))
     parser.add_argument("--resume_from", default=None,
-                        help="Path to LoRA adapter to resume from (Setup E Stage 2)")
+                        help="Path to a LoRA adapter to continue training from (optional)")
     parser.add_argument("--wandb_project", default="korean-cot-distill")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()

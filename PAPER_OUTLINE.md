@@ -56,7 +56,7 @@
 5. Results                   ~1.5 pages [공동, 표 중심]
    5.1 Main Results (Qwen)
    5.2 Robustness (Llama, EXAONE)
-   5.3 DALR Ablation (F vs F_random)
+   5.3 DALR Ablation (E vs E_random)
 6. Analysis                  ~1.5 pages [분석 담당]
    6.1 Per-difficulty Analysis
    6.2 XLSC Tie Statistics + Cascade Effect
@@ -78,16 +78,16 @@ Appendix
 **책임 섹션**:
 - 3.2 DALR (method 상세)
 - 5.1 Main Results (Qwen) — DALR 결과 부분
-- 5.3 DALR Ablation (F vs F_random)
+- 5.3 DALR Ablation (E vs E_random)
 - 6.1 Per-difficulty Analysis
 - 6.4 Statistical Tests (McNemar, Bootstrap CI)
 
 **핵심 메시지**:
-> "DALR의 효과는 'routing'에 있고 'data scaling'이 아니다 (F vs F_random)"
+> "DALR의 효과는 'routing'에 있고 'data scaling'이 아니다 (E vs E_random)"
 
 **필요한 자료**:
-- F 결과 (HRM8K 1,319 전체)
-- F_random 결과
+- E 결과 (HRM8K 1,319 전체)
+- E_random 결과
 - McNemar p-value, Bootstrap CI
 - Per-difficulty breakdown
 
@@ -139,36 +139,34 @@ Appendix
 
 ---
 
-## 📊 핵심 결과 (Qwen 메인)
+## 📊 핵심 결과 (Qwen 메인) — 1,319 full evaluation
 
-### Table 1: Single Model Results (HRM8K / GSM8K)
+### Table 1: Single Model Results (P1 setup, HRM8K-KO / GSM8K-EN)
 
-| Setup | HRM8K (KO) | GSM8K (EN) | 비고 |
-|-------|-----------|-----------|------|
-| A (Base) | 55.8 | 71.4 | Zero-shot baseline |
-| B (EN CoT) | 53.3 | 75.1 | Cross-lingual transfer |
-| C (KO CoT) | 60.0 | 73.2 | KO single-language baseline |
-| D (Bilingual mix) | 60.5 | 75.9 | Naive bilingual |
-| **DALR (F)** | 58.9 / 61.79† | 66.9 / 69.37† | ⭐ Stage 1 method |
-| F_random (ablation) | 56.8 | 69.6 | DALR routing 효과 ablation |
-
-†1,319 전체 평가 수치
+| Setup | HRM8K (KO) | 95% CI (KO) | GSM8K (EN) | 비고 |
+|-------|-----------|-------------|-----------|------|
+| A (Base) | 53.90 | [51.2, 56.6] | 71.65 | Zero-shot baseline |
+| B (EN CoT) | 54.44 | [51.7, 57.2] | 74.22 | Cross-lingual transfer |
+| C (KO CoT) | 59.51 | [56.8, 62.2] | 70.74 | KO single-language baseline |
+| D (Bilingual mix) | 58.98 | [56.2, 61.8] | 74.98 | Naive bilingual |
+| **E (DALR)** | **61.79** 🥇 | [59.1, 64.4] | 69.37 | ⭐ Stage 1 method |
+| E_random (ablation) | 58.83 | [56.2, 61.6] | 72.71 | DALR routing 효과 ablation |
 
 ### Table 2: With Inference-Time Aggregation
 
-| Setup | HRM8K (KO) |
-|-------|-----------|
-| DALR alone | 58.9 |
-| DALR + **XLSC** | **69.4** ⭐ Stage 2 (메인 결과) |
-| DALR + **XLSC Cascade** | (TBD, Llama 기준 +0.5%p 추가) |
+| Setup | HRM8K (KO) | GSM8K (EN) |
+|-------|-----------|-----------|
+| E (DALR alone) | 61.79 | 69.37 |
+| **E + XLSC** | TBD | TBD |
+| **E + Cascade XLSC** | TBD | TBD |
 
-### Table 3: Robustness across Models
+### Table 3: Robustness across Models (모두 TBD — P3 담당)
 
-| Model | A | C | DALR | DALR+XLSC | DALR+Cascade |
-|-------|---|---|------|-----------|--------------|
-| Qwen2.5-3B | 55.8 | 60.0 | 58.9 | **69.4** | TBD |
-| Llama-3.2-3B | 34.8 | 53.3 | 55.1 | 66.6 | 67.1 |
-| EXAONE-3.5-2.4B | 56.1 | 57.7 | 57.4 | N/A | TBD |
+| Model | A | C | E (DALR) | E + XLSC | E + Cascade |
+|-------|---|---|----------|----------|-------------|
+| Qwen2.5-3B | 53.90 | 59.51 | **61.79** | TBD | TBD |
+| Llama-3.2-3B | TBD | TBD | TBD | TBD | TBD |
+| EXAONE-3.5-2.4B | TBD | TBD | TBD | TBD | TBD |
 
 ---
 
@@ -198,8 +196,8 @@ Appendix
 
 | 비교 | Test | Expected | 책임 |
 |------|------|----------|------|
-| F vs F_random (HRM8K) | McNemar | p=0.030 * | P1 |
-| F vs C (HRM8K) | McNemar | TBD (1,319 평가 후) | P1 |
+| E vs E_random (HRM8K) | McNemar | p=0.030 * | P1 |
+| E vs C (HRM8K) | McNemar | TBD (1,319 평가 후) | P1 |
 | XLSC vs DALR alone | McNemar | TBD | P2 |
 | Cascade vs XLSC | McNemar | TBD | P2 |
 | 모든 setup | Bootstrap 95% CI | TBD | P1 또는 P3 |
@@ -262,14 +260,14 @@ Appendix
 
 ---
 
-## 🚫 Template에서 제거할 내용
+## 🚫 Template에서 제거된 내용 (완료)
 
-1. **Section 3.3 "Model Soup" 전체 삭제**
-2. **Section 3.4 "Cross-Lingual Ensemble"** → "XLSC + Cascade"로 교체
-3. **Abstract의 "model soup"/"cross-lingual ensemble" 언급** → "XLSC + Cascade"로 변경
-4. **Introduction의 "three-level pipeline"** → "two-level"로 수정
-5. **Table 1의 "Model soup (B+C+D+E+F)" 행** → 제거, "DALR + XLSC" 추가
-6. **References.bib의 `wortsman2022soup`** → 삭제 가능 (인용 안 함)
+- ✅ Section "Model Soup" 통째 삭제
+- ✅ "Cross-Lingual Ensemble" → "XLSC + Cascade"로 교체
+- ✅ Abstract의 model soup / cross-lingual ensemble 표현 제거
+- ✅ "three-level pipeline" → "two-stage cross-lingual framework"
+- ✅ Setup F → E, F_random → E_random 으로 일괄 변경
+- ⚠️ `references.bib`의 `wortsman2022soup` 항목 제거 필요 (인용 안 함)
 
 ---
 

@@ -1,8 +1,8 @@
 """
-Statistical tests for the main results.
+Statistical tests for the main results (DALR pipeline).
 
   Bootstrap 95% CI:
-    For every setup × bench, resample with replacement (n=1000) to get
+    For every setup x bench, resample with replacement (n=1000) to get
     accuracy distribution. Report 2.5% and 97.5% percentiles.
 
   McNemar test (paired):
@@ -14,7 +14,8 @@ Statistical tests for the main results.
     Two-tailed.
 
 Usage:
-  python -m src.analysis.statistical_tests --limit 500
+  python -m src.analysis.statistical_tests --limit 0     # full 1,319 eval
+  python -m src.analysis.statistical_tests --limit 500   # 500-sample subset
 """
 
 import argparse
@@ -22,6 +23,8 @@ import json
 import math
 import random
 from pathlib import Path
+
+
 def chi2_sf_df1(x: float) -> float:
     # Survival function (1 - CDF) of chi-square with 1 dof.
     # chi2_1 = Z^2 with Z ~ N(0,1), so p = 2 * (1 - Phi(sqrt(x))) = erfc(sqrt(x/2)).
@@ -30,23 +33,12 @@ def chi2_sf_df1(x: float) -> float:
     return math.erfc(math.sqrt(x / 2))
 
 
-SETUPS = ["a", "b", "c", "d", "e", "f", "f_random", "soup_bcf", "soup_bcdef"]
-
-CLSC_COMBOS = [
-    "A_B_C_D_E_F",                          # 6-way (old SOTA)
-    "A_B_C_D_E_F_SOUP_BCDEF",               # 7-way (new SOTA)
-]
+SETUPS = ["a", "b", "c", "d", "e", "e_random"]
 
 KEY_PAIRS = [
-    ("f", "c",          "DALR vs KO-only"),
-    ("f", "f_random",   "DALR vs random EN bridge"),
-    ("soup_bcdef", "f", "soup_bcdef vs F (DALR)"),
-    ("soup_bcdef", "c", "soup_bcdef vs C"),
-    ("soup_bcf",   "f", "soup_bcf vs F"),
-]
-
-CLSC_PAIRS = [
-    ("A_B_C_D_E_F_SOUP_BCDEF", "A_B_C_D_E_F", "7-way (with soup) vs 6-way (without)"),
+    ("e", "c",        "DALR vs KO-only (C)"),
+    ("e", "d",        "DALR vs bilingual mix (D)"),
+    ("e", "e_random", "DALR vs random EN bridge (ablation)"),
 ]
 
 
@@ -92,7 +84,8 @@ def mcnemar(a_correct: dict[str, bool], b_correct: dict[str, bool]) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--limit", type=str, default="500")
+    ap.add_argument("--limit", type=str, default="0",
+                    help="0 = full 1,319 eval (default); otherwise loads results/setup_*_{bench}_limit{N}.json")
     ap.add_argument("--n-resample", type=int, default=1000)
     args = ap.parse_args()
 
@@ -126,27 +119,7 @@ def main():
                 correct = list(det.values())
                 acc, lo, hi = bootstrap_ci(correct, args.n_resample)
                 row += f"  {acc:5.2f} [{lo:5.2f},{hi:5.2f}]      "
-            except Exception as e:
-                row += f"{'(err)':>30}"
-        print(row)
-
-    # CLSC combos
-    print()
-    clsc_details = {b: {} for b in benches}
-    for combo in CLSC_COMBOS:
-        row = f"{combo:<14}"
-        for b in benches:
-            path = results_dir / f"clsc_{combo}_{b}{suffix}.json"
-            if not path.exists():
-                row += f"{'—':>30}"
-                continue
-            try:
-                det = load_details(path)
-                clsc_details[b][combo] = det
-                correct = list(det.values())
-                acc, lo, hi = bootstrap_ci(correct, args.n_resample)
-                row += f"  {acc:5.2f} [{lo:5.2f},{hi:5.2f}]      "
-            except Exception as e:
+            except Exception:
                 row += f"{'(err)':>30}"
         print(row)
 
@@ -174,14 +147,7 @@ def main():
                 continue
             r = mcnemar(setup_details[bench][a], setup_details[bench][b])
             sig = fmt_p(r["p"])
-            print(f"  {label:<35} | A>B={r['b']:3d}, B>A={r['c']:3d} | chi2={r['chi2']:5.2f} | {sig}")
-
-        for a, b, label in CLSC_PAIRS:
-            if a not in clsc_details[bench] or b not in clsc_details[bench]:
-                continue
-            r = mcnemar(clsc_details[bench][a], clsc_details[bench][b])
-            sig = fmt_p(r["p"])
-            print(f"  {label:<35} | A>B={r['b']:3d}, B>A={r['c']:3d} | chi2={r['chi2']:5.2f} | {sig}")
+            print(f"  {label:<38} | A>B={r['b']:3d}, B>A={r['c']:3d} | chi2={r['chi2']:5.2f} | {sig}")
 
     print()
     print("=" * 78)
