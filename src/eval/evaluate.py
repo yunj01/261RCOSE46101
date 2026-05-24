@@ -127,6 +127,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
             dtype=None,
             load_in_4bit=True,
             attn_implementation="sdpa",
+            trust_remote_code=True,
         )
     else:
         if adapter_path:
@@ -137,6 +138,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
             dtype=None,
             load_in_4bit=True,
             attn_implementation="sdpa",
+            trust_remote_code=True,
         )
 
     FastLanguageModel.for_inference(model)

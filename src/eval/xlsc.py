@@ -140,6 +140,7 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: 
         dtype=None,
         load_in_4bit=True,
         attn_implementation="sdpa",
+        trust_remote_code=True,
     )
     FastLanguageModel.for_inference(model)
 
