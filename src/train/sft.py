@@ -33,8 +33,32 @@ MAX_SEQ_LENGTH = 1024
 LORA_R = 32
 LORA_ALPHA = 64
 LORA_DROPOUT = 0.0
-LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj",
-                "gate_proj", "up_proj", "down_proj"]
+# EXAONE-3.5 attention: out_proj (≠ o_proj); MLP: c_fc_0/c_fc_1/c_proj (≠ gate/up/down)
+LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "out_proj",
+                "c_fc_0", "c_fc_1", "c_proj"]
+
+
+def _patch_exaone_compat(model):
+    """EXAONE-3.5 compatibility shim for PEFT.
+
+    PEFT's tied-weight check calls model.get_input_embeddings(), which
+    traverses down to ExaoneModel.  ExaoneModel does not override
+    get_input_embeddings() in its custom code, so we add it here
+    pointing at self.wte (the actual token-embedding table).
+    """
+    inner = getattr(model, "transformer", None) or getattr(model, "model", None)
+    if inner is None:
+        return
+    cls = type(inner)
+    if not getattr(cls, "_exaone_compat_patched", False):
+        def _get_input_embeddings(self):
+            return getattr(self, "wte", None) or getattr(self, "embed_tokens", None)
+        def _set_input_embeddings(self, value):
+            attr = "wte" if hasattr(self, "wte") else "embed_tokens"
+            setattr(self, attr, value)
+        cls.get_input_embeddings = _get_input_embeddings
+        cls.set_input_embeddings = _set_input_embeddings
+        cls._exaone_compat_patched = True
 
 SETUP_CONFIG = {
     "b":        {"file": "setup_b_english_cot.jsonl",  "epochs": 3, "lr": 2e-4, "out": "setup_b"},
@@ -106,7 +130,9 @@ def main():
             dtype=None,
             load_in_4bit=True,
             attn_implementation="sdpa",  # RTX 5060 Ti (Blackwell SM12): xformers 미지원
+            trust_remote_code=True,
         )
+        _patch_exaone_compat(model)
         # adapter is loaded but need to ensure trainable
         FastLanguageModel.for_training(model)
     else:
@@ -116,7 +142,9 @@ def main():
             dtype=None,
             load_in_4bit=True,
             attn_implementation="sdpa",  # RTX 5060 Ti (Blackwell SM12): xformers 미지원
+            trust_remote_code=True,
         )
+        _patch_exaone_compat(model)
         model = FastLanguageModel.get_peft_model(
             model,
             r=LORA_R,
