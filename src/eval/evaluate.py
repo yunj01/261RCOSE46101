@@ -28,7 +28,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 
-MODEL_NAME   = "Qwen/Qwen2.5-3B-Instruct"
+MODEL_NAME   = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
 MAX_SEQ_LEN  = 1024
 MAX_NEW_TOKENS = 512      # 팀원 코드와 동일
 SAMPLE_SEED  = 42         # reproducible subsampling
@@ -97,7 +97,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
     results_dir = project / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_limit{limit}" if limit else ""
-    out_path = results_dir / f"setup_{setup}_{bench}{suffix}.json"
+    out_path = results_dir / f"setup_{setup}_{bench}{suffix}_exaone.json"
 
     # ---- Resume: 완료된(partial=False) 결과만 skip ----
     if out_path.exists():

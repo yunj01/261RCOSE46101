@@ -28,7 +28,7 @@ from trl import SFTTrainer
 
 
 # ---- Constants ----
-MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
+MODEL_NAME = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
 MAX_SEQ_LENGTH = 1024
 LORA_R = 32
 LORA_ALPHA = 64

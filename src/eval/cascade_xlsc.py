@@ -36,8 +36,8 @@ from src.eval.xlsc import (
 def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float, limit: int):
     results_dir = project / "results"
     suffix = f"_limit{limit}" if limit else ""
-    xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
-    out_path  = results_dir / f"cascade_xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
+    xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
+    out_path  = results_dir / f"cascade_xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
 
     if not xlsc_path.exists():
         raise FileNotFoundError(

@@ -115,7 +115,7 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: 
     results_dir = project / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_limit{limit}" if limit else ""
-    out_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
+    out_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
 
     # Resume: skip if a completed (non-partial) result already exists.
     if out_path.exists():
