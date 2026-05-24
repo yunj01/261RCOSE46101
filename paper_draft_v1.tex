@@ -247,22 +247,22 @@ robustness across student architectures.
 \toprule
 \textbf{Setup} & \textbf{HRM8K (KO)} & \textbf{95\% CI (KO)} & \textbf{GSM8K (EN)} \\
 \midrule
-A (Base zero-shot)           & 53.90          & [51.2, 56.6] & 71.65 \\
-B (English CoT)              & 54.44          & [51.7, 57.2] & 74.22 \\
-C (Korean CoT)               & 59.51          & [56.8, 62.2] & 70.74 \\
-D (Bilingual mix)            & 58.98          & [56.2, 61.8] & 74.98 \\
-E (DALR)                     & \textbf{61.79} & [59.1, 64.4] & 69.37 \\
-E\_random (ablation)         & 58.83          & [56.2, 61.6] & 72.71 \\
+A (Base zero-shot)           & 53.90          & [51.02, 56.48] & 71.65 \\
+B (English CoT)              & 54.44          & [51.78, 57.32] & 74.22 \\
+C (Korean CoT)               & 59.51          & [56.63, 62.17] & 70.74 \\
+D (Bilingual mix)            & 58.98          & [56.25, 61.79] & 74.98 \\
+E (DALR)                     & 61.79          & [59.29, 64.44] & 69.37 \\
+E\_random (ablation)         & 58.83          & [56.10, 61.79] & 72.71 \\
 \midrule
-E + XLSC                     & \note{TBD}     & \note{TBD}   & \note{--} \\
-E + Cascade XLSC             & \note{TBD}     & \note{TBD}   & \note{--} \\
+E + XLSC ($N{=}3$, $T{=}0.7$)        & 68.69          & [66.19, 71.19] & \note{--} \\
+E + Cascade XLSC                     & \textbf{69.98} & [67.40, 72.48] & \note{--} \\
 \bottomrule
 \end{tabular}
 \caption{Main results on HRM8K (Korean, 1{,}319 problems) and GSM8K
 (English, 1{,}319 problems) with the Qwen2.5-3B student. E (DALR) is
-the best single model on HRM8K; XLSC and Cascade further improve
-accuracy. \note{Fill XLSC/Cascade numbers once 1{,}319 evaluation
-finishes.}}
+the best single-model setup; \textbf{E + Cascade XLSC} attains the best
+overall accuracy on HRM8K (\textbf{+8.19} pts over E alone). 95\% CI
+from 1{,}000-resample bootstrap.}
 \label{tab:main}
 \end{table}
 
@@ -273,7 +273,7 @@ finishes.}}
 \toprule
 \textbf{Student model} & \textbf{C (KO CoT)} & \textbf{E (DALR)} & \textbf{E + XLSC} \\
 \midrule
-Qwen2.5-3B        & 59.51 & \textbf{61.79} & \note{TBD} \\
+Qwen2.5-3B        & 59.51 & 61.79 & \textbf{68.69} \\
 Llama-3.2-3B      & \note{TBD}  & \note{TBD}  & \note{TBD} \\
 EXAONE-3.5-2.4B   & \note{TBD}  & \note{TBD}  & \note{TBD} \\
 \bottomrule
@@ -300,10 +300,15 @@ question contexts even when producing English solutions. The trade-off
 motivates inference-time aggregation across both languages.
 
 \paragraph{XLSC and Cascade further improve Korean accuracy.}
-\note{Once the 1{,}319 XLSC/Cascade runs finish, fill the gain over E
-and the McNemar p-value here. Expected pattern from preliminary
-500-sample runs: E+XLSC $\approx$ 69\% on HRM8K (Qwen), with Cascade
-giving a small additional gain by resolving ties.}
+Applying XLSC ($N{=}3$ Korean + $N{=}3$ English samples, $T{=}0.7$) to
+the same E checkpoint lifts HRM8K from 61.79 to \textbf{68.69}
+(\textbf{+6.90} pts; McNemar $p{<}0.001$ vs.\ E). Of the 1{,}319
+problems, 208 (15.8\%) end up tied in the 6-way vote; Cascade XLSC
+resolves them with one extra English sample and gains another
+\textbf{1.29} pts (\textbf{69.98}; McNemar $p{=}0.003$ vs.\ XLSC), with
+23 ties flipping to correct and only 6 flipping to wrong. The full
+pipeline (E + Cascade) improves over E by \textbf{8.19} pts
+($p{<}0.001$).
 
 \paragraph{Robustness across students.}
 The same qualitative pattern---DALR matches or exceeds C on Korean,
@@ -337,9 +342,17 @@ Cascade improves accuracy primarily on the tied subset, justifying its
 targeted budget allocation.}
 
 \paragraph{Statistical robustness.}
-\note{Summarize Bootstrap CIs (Table~\ref{tab:main}) and McNemar
-tests: E vs.\ E\_random ($p{=}0.030$ on HRM8K), E vs.\ C, E+XLSC vs.\
-E, Cascade vs.\ XLSC.}
+All accuracies in Table~\ref{tab:main} are reported with 95\%
+percentile bootstrap intervals (1{,}000 resamples). Paired McNemar
+tests on HRM8K confirm the main claims:
+E vs.\ E\_random $p{=}0.030$;
+E vs.\ D $p{=}0.045$;
+E + XLSC vs.\ E $p{<}0.001$;
+Cascade vs.\ XLSC $p{=}0.003$;
+Cascade vs.\ E $p{<}0.001$.
+On GSM8K, E shows a significant drop relative to D ($p{<}0.001$) and
+E\_random ($p{=}0.016$), confirming the deliberate Korean--English
+trade-off described above.
 
 \section{Conclusion}
 We studied how to improve Korean mathematical reasoning in small
