@@ -32,6 +32,7 @@ MODEL_NAME   = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
 MAX_SEQ_LEN  = 1024
 MAX_NEW_TOKENS = 512      # 팀원 코드와 동일
 SAMPLE_SEED  = 42         # reproducible subsampling
+EVAL_BATCH_SIZE = 8       # batch inference for speed (RTX 5070 Ti 16GB)
 
 # 팀원 코드 동일: system prompt로 CoT 유도 (zero-shot CoT prompting)
 SYSTEM_KO = "당신은 수학 문제를 단계별로 풀어주는 친절한 선생님입니다."
@@ -50,6 +51,25 @@ BENCH_FILE = {
     "hrm8k": "data/eval/hrm8k_ko.jsonl",
     "gsm8k": "data/eval/gsm8k_test_en.jsonl",
 }
+
+def _patch_exaone_compat(model):
+    """EXAONE-3.5 compatibility shim for unsloth for_inference.
+    Traverses all submodules (works through PEFT/LoRA wrappers) to find
+    ExaoneModel and patches get_input_embeddings → self.wte."""
+    for _name, module in model.named_modules():
+        cls = type(module)
+        if "ExaoneModel" in cls.__name__ and not getattr(cls, "_exaone_compat_patched", False):
+            def _get_input_embeddings(self):
+                return getattr(self, "wte", None) or getattr(self, "embed_tokens", None)
+            def _set_input_embeddings(self, value):
+                attr = "wte" if hasattr(self, "wte") else "embed_tokens"
+                setattr(self, attr, value)
+            cls.get_input_embeddings = _get_input_embeddings
+            cls.set_input_embeddings = _set_input_embeddings
+            cls._exaone_compat_patched = True
+            print(f"[PATCH] EXAONE compat applied to {cls.__name__}")
+            break
+
 
 def load_bench(path: Path):
     records = []
@@ -141,6 +161,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
             trust_remote_code=True,
         )
 
+    _patch_exaone_compat(model)
     FastLanguageModel.for_inference(model)
 
     # ---- Load benchmark ----
@@ -153,15 +174,35 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
     else:
         print(f"  Loaded {len(records)} problems")
 
-    # ---- Single-sample inference (팀원 코드 매칭, batch padding 영향 제거) ----
+    # ---- Batched inference (EVAL_BATCH_SIZE로 속도 향상) ----
     import torch
     correct = 0
     total = 0
     details = []
 
-    for i, rec in enumerate(tqdm(records, desc=f"{setup}/{bench}")):
-        prompt = make_prompt(rec, bench, tokenizer)
-        inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+    # Left-padding for decoder-only batch inference
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    prompts_all = [make_prompt(rec, bench, tokenizer) for rec in records]
+    golds_all   = [normalize_gold(rec) for rec in records]
+
+    for batch_start in tqdm(range(0, len(records), EVAL_BATCH_SIZE),
+                            desc=f"{setup}/{bench}",
+                            total=(len(records) + EVAL_BATCH_SIZE - 1) // EVAL_BATCH_SIZE):
+        batch_end   = min(batch_start + EVAL_BATCH_SIZE, len(records))
+        batch_recs  = records[batch_start:batch_end]
+        batch_prompts = prompts_all[batch_start:batch_end]
+        batch_golds   = golds_all[batch_start:batch_end]
+
+        inputs = tokenizer(
+            batch_prompts, return_tensors="pt",
+            padding=True, truncation=True,
+            max_length=MAX_SEQ_LEN,
+        ).to("cuda")
+
+        inp_lens = inputs["attention_mask"].sum(dim=1)  # actual token length per sample
 
         with torch.inference_mode():
             outputs = model.generate(
@@ -173,22 +214,22 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
                 pad_token_id=tokenizer.eos_token_id,
             )
 
-        inp_len = inputs["input_ids"].shape[1]
-        gen_ids = outputs[0][inp_len:]
-        gen_text = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
+        for j, (rec, gold) in enumerate(zip(batch_recs, batch_golds)):
+            inp_len  = inp_lens[j].item()
+            gen_ids  = outputs[j][inp_len:]
+            gen_text = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
 
-        pred = extract_answer(gen_text, bench)
-        gold = normalize_gold(rec)
+            pred = extract_answer(gen_text, bench)
 
-        try:
-            ok = abs(float(pred) - float(gold)) < 0.01
-        except (ValueError, TypeError):
-            ok = pred.strip() == gold.strip()
+            try:
+                ok = abs(float(pred) - float(gold)) < 0.01
+            except (ValueError, TypeError):
+                ok = pred.strip() == gold.strip()
 
-        correct += int(ok)
-        total += 1
-        details.append({
-                "id":        rec.get("id", f"{i}"),
+            correct += int(ok)
+            total += 1
+            details.append({
+                "id":        rec.get("id", f"{batch_start+j}"),
                 "question":  rec.get("question", rec.get("problem", "")),
                 "gold":      gold,
                 "predicted": pred,
@@ -197,7 +238,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
             })
 
         # Incremental save every 50 samples (재부팅 대비)
-        if (i + 1) % 50 == 0:
+        if total % 50 == 0 or total == len(records):
             partial = {
                 "setup": setup, "bench": bench,
                 "total": total, "correct": correct,

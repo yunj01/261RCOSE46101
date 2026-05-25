@@ -27,6 +27,7 @@ from tqdm import tqdm
 from src.eval.evaluate import (
     MODEL_NAME, MAX_SEQ_LEN, MAX_NEW_TOKENS,
     SETUP_ADAPTER, BENCH_FILE,
+    _patch_exaone_compat,
 )
 from src.eval.xlsc import (
     make_prompt_xlsc, extract_answer_bilingual, vote, is_correct,
@@ -67,17 +68,25 @@ def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float, limi
         return out
 
     # ── Load model ───────────────────────────────────────────────────────
+    # Two-step loading: base first → patch → adapter
     adapter_rel = SETUP_ADAPTER[setup]
     adapter_path = (project / adapter_rel) if adapter_rel else None
-    src_name = str(adapter_path) if (adapter_path and adapter_path.exists()) else MODEL_NAME
+
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=src_name,
+        model_name=MODEL_NAME,   # always load base first
         max_seq_length=MAX_SEQ_LEN,
         dtype=None,
         load_in_4bit=True,
         attn_implementation="sdpa",
         trust_remote_code=True,
     )
+    _patch_exaone_compat(model)  # patch ExaoneModel class before PEFT
+
+    if adapter_path and adapter_path.exists():
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, str(adapter_path), is_trainable=False)
+
+    _patch_exaone_compat(model)
     FastLanguageModel.for_inference(model)
 
     # ── Generate one extra EN sample per tied problem ────────────────────
