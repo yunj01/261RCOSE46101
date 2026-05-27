@@ -1,0 +1,62 @@
+{
+  "a_hrm8k": {
+    "accuracy": 57.39,
+    "correct": 757,
+    "total": 1319
+  },
+  "a_gsm8k": {
+    "accuracy": 70.43,
+    "correct": 929,
+    "total": 1319
+  },
+  "b_hrm8k": {
+    "accuracy": 56.33,
+    "correct": 743,
+    "total": 1319
+  },
+  "b_gsm8k": {
+    "accuracy": 70.96,
+    "correct": 936,
+    "total": 1319
+  },
+  "c_hrm8k": {
+    "accuracy": 60.35,
+    "correct": 796,
+    "total": 1319
+  },
+  "c_gsm8k": {
+    "accuracy": 67.25,
+    "correct": 887,
+    "total": 1319
+  },
+  "d_hrm8k": {
+    "accuracy": 60.2,
+    "correct": 794,
+    "total": 1319
+  },
+  "d_gsm8k": {
+    "accuracy": 70.13,
+    "correct": 925,
+    "total": 1319
+  },
+  "e_hrm8k": {
+    "accuracy": 60.5,
+    "correct": 798,
+    "total": 1319
+  },
+  "e_gsm8k": {
+    "accuracy": 67.25,
+    "correct": 887,
+    "total": 1319
+  },
+  "e_random_hrm8k": {
+    "accuracy": 61.33,
+    "correct": 809,
+    "total": 1319
+  },
+  "e_random_gsm8k": {
+    "accuracy": 70.36,
+    "correct": 928,
+    "total": 1319
+  }
+}
