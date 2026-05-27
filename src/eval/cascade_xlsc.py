@@ -15,14 +15,14 @@ Usage:
   python -m src.eval.cascade_xlsc --setup e --bench hrm8k --n 3 --temp 0.7
 """
 
-from unsloth import FastLanguageModel
-
 import json
 import argparse
 from pathlib import Path
 
 import torch
 from tqdm import tqdm
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
 
 from src.eval.evaluate import (
     MODEL_NAME, MAX_SEQ_LEN, MAX_NEW_TOKENS,
@@ -34,7 +34,8 @@ from src.eval.xlsc import (
 )
 
 
-def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float, limit: int):
+def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float,
+                limit: int, batch_size: int = 16):
     results_dir = project / "results"
     suffix = f"_limit{limit}" if limit else ""
     xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
@@ -89,17 +90,28 @@ def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float, limi
     _patch_exaone_compat(model)
     FastLanguageModel.for_inference(model)
 
-    # ── Generate one extra EN sample per tied problem ────────────────────
+    # ── Generate one extra EN sample per tied problem (batched) ─────────
     correct_before = sum(1 for d in details if d["correct"])
     n_flipped_to_correct = 0
     n_flipped_to_wrong  = 0
 
-    for idx in tqdm(tied_idx, desc=f"Cascade {setup}/{bench}"):
-        d = details[idx]
-        rec = {"question": d["question"], "answer": d["gold"]}
-        prompt = make_prompt_xlsc(rec, "en", tokenizer)
-        inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+    print(f"  Batch size: {batch_size}")
+    for batch_start in tqdm(range(0, len(tied_idx), batch_size),
+                            desc=f"Cascade {setup}/{bench}"):
+        batch_tied = tied_idx[batch_start:batch_start + batch_size]
+        batch_recs = [{"question": details[idx]["question"],
+                       "answer":   details[idx]["gold"]} for idx in batch_tied]
+
+        prompts = [make_prompt_xlsc(rec, "en", tokenizer) for rec in batch_recs]
+        inputs = tokenizer(
+            prompts,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=MAX_SEQ_LEN,
+        ).to("cuda")
         inp_len = inputs["input_ids"].shape[1]
+
         with torch.inference_mode():
             out = model.generate(
                 **inputs,
@@ -111,29 +123,31 @@ def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float, limi
                 repetition_penalty=1.1,
                 pad_token_id=tokenizer.eos_token_id,
             )
-        gen = tokenizer.decode(out[0][inp_len:], skip_special_tokens=True).strip()
-        extra_ans = extract_answer_bilingual(gen)
 
-        # ── Recompute vote with the extra EN sample (now 2N+1 = odd) ────
-        en_samples = list(d.get("en_samples", [])) + [extra_ans]
-        ko_samples = list(d.get("ko_samples", []))
-        all_samples = ko_samples + en_samples
-        voted, counts, tied = vote(all_samples)  # tied should be False now
+        for k, idx in enumerate(batch_tied):
+            d = details[idx]
+            gen = tokenizer.decode(out[k][inp_len:], skip_special_tokens=True).strip()
+            extra_ans = extract_answer_bilingual(gen)
 
-        before_ok = d["correct"]
-        after_ok = is_correct(voted, d["gold"])
-        if before_ok and not after_ok:
-            n_flipped_to_wrong += 1
-        elif (not before_ok) and after_ok:
-            n_flipped_to_correct += 1
+            # Recompute vote with extra EN sample (now 2N+1 = odd → no tie)
+            en_samples = list(d.get("en_samples", [])) + [extra_ans]
+            ko_samples = list(d.get("ko_samples", []))
+            all_samples = ko_samples + en_samples
+            voted, counts, tied = vote(all_samples)
 
-        # Update detail entry
-        d["en_samples"]  = en_samples
-        d["cascade_en_extra"] = extra_ans
-        d["vote_counts"] = counts
-        d["is_tied"]     = tied  # should be False
-        d["voted"]       = voted
-        d["correct"]     = after_ok
+            before_ok = d["correct"]
+            after_ok = is_correct(voted, d["gold"])
+            if before_ok and not after_ok:
+                n_flipped_to_wrong += 1
+            elif (not before_ok) and after_ok:
+                n_flipped_to_correct += 1
+
+            d["en_samples"]       = en_samples
+            d["cascade_en_extra"] = extra_ans
+            d["vote_counts"]      = counts
+            d["is_tied"]          = tied
+            d["voted"]            = voted
+            d["correct"]          = after_ok
 
     correct_after = sum(1 for d in details if d["correct"])
     total = len(details)
@@ -168,12 +182,14 @@ def main():
                     help="must match the N used in xlsc.py (default 3)")
     ap.add_argument("--temp",  type=float, default=0.7)
     ap.add_argument("--limit", type=int,   default=0)
+    ap.add_argument("--batch_size", type=int, default=16,
+                    help="tied problems per batch (default 16)")
     args = ap.parse_args()
 
     project = Path(__file__).resolve().parent.parent.parent
     benches = ["hrm8k", "gsm8k"] if args.bench == "all" else [args.bench]
     for b in benches:
-        run_cascade(args.setup, b, project, args.n, args.temp, args.limit)
+        run_cascade(args.setup, b, project, args.n, args.temp, args.limit, args.batch_size)
 
 
 if __name__ == "__main__":

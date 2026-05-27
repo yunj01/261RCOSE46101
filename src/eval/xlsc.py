@@ -18,8 +18,6 @@ Usage:
   python -m src.eval.xlsc --setup e --bench all   --n 3 --temp 0.7 --limit 0
 """
 
-from unsloth import FastLanguageModel
-
 import json
 import argparse
 from pathlib import Path
@@ -28,6 +26,8 @@ from collections import Counter
 import re
 import torch
 from tqdm import tqdm
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
 
 from src.eval.evaluate import (
     MODEL_NAME, MAX_SEQ_LEN, MAX_NEW_TOKENS, SAMPLE_SEED,
@@ -42,7 +42,7 @@ from src.eval.evaluate import (
 
 def make_prompt_xlsc(record, system_lang: str, tokenizer):
     """Build chat prompt with a chosen system-prompt language.
-    system_lang ∈ {'ko', 'en'}.  The user question is kept in its original
+    system_lang in {'ko', 'en'}.  The user question is kept in its original
     language (i.e. unchanged from the benchmark)."""
     q = record.get("question", record.get("problem", ""))
     system = SYSTEM_KO if system_lang == "ko" else SYSTEM_EN
@@ -73,7 +73,7 @@ def extract_answer_bilingual(text: str) -> str:
     return nums[-1] if nums else ""
 
 
-def vote(preds: list[str]) -> tuple[str, dict, bool]:
+def vote(preds: list) -> tuple:
     """Majority vote with tie detection.
 
     Returns (voted_answer, counts_dict, is_tied).
@@ -89,11 +89,9 @@ def vote(preds: list[str]) -> tuple[str, dict, bool]:
     tied = [a for a, c in counts.items() if c == top]
     is_tied = len(tied) > 1
     if is_tied:
-        # first-occurrence tiebreak (not authoritative; cascade may overwrite)
         for p in nonempty:
             if counts[p] == top:
                 return p, dict(counts), True
-    # clear winner
     for p in nonempty:
         if counts[p] == top:
             return p, dict(counts), False
@@ -107,9 +105,56 @@ def is_correct(pred: str, gold: str) -> bool:
         return pred.strip() == gold.strip()
 
 
+# ─── Batched generation helper ──────────────────────────────────────────────
+
+def generate_batch(model, tokenizer, prompts: list, n: int, temp: float) -> list:
+    """Generate n samples for each prompt in the batch.
+
+    Args:
+        prompts: list of B prompt strings
+        n: num_return_sequences per prompt
+    Returns:
+        list of B lists, each with n answer strings.
+        i.e. [[ans0_0, ans0_1, ans0_2], [ans1_0, ...], ...]
+    """
+    inputs = tokenizer(
+        prompts,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=MAX_SEQ_LEN,
+    ).to("cuda")
+
+    inp_len = inputs["input_ids"].shape[1]  # uniform due to left-padding
+
+    with torch.inference_mode():
+        out = model.generate(
+            **inputs,
+            max_new_tokens=MAX_NEW_TOKENS,
+            do_sample=True,
+            temperature=temp,
+            top_p=0.95,
+            num_return_sequences=n,
+            repetition_penalty=1.1,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+    # out shape: [B * n, total_seq_len]
+    # out[i*n + j] = j-th sample for prompt i
+    B = len(prompts)
+    results = []
+    for i in range(B):
+        samples = []
+        for j in range(n):
+            gen = tokenizer.decode(out[i * n + j][inp_len:], skip_special_tokens=True).strip()
+            samples.append(extract_answer_bilingual(gen))
+        results.append(samples)
+    return results
+
+
 # ─── XLSC runner ────────────────────────────────────────────────────────────
 
-def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: int):
+def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float,
+             limit: int, batch_size: int = 8):
     adapter_rel = SETUP_ADAPTER[setup]
     adapter_path = (project / adapter_rel) if adapter_rel else None
     bench_path = project / BENCH_FILE[bench]
@@ -118,7 +163,12 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: 
     suffix = f"_limit{limit}" if limit else ""
     out_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
 
-    # Resume: skip if a completed (non-partial) result already exists.
+    # ── Resume logic ─────────────────────────────────────────────────────
+    correct = total = 0
+    n_tied = 0
+    details = []
+    done_ids = set()
+
     if out_path.exists():
         try:
             with open(out_path, encoding="utf-8") as f:
@@ -126,10 +176,17 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: 
             if existing.get("total", 0) > 0 and not existing.get("partial", False):
                 print(f"[SKIP] {out_path.name} done: {existing['accuracy']}%")
                 return existing
+            elif existing.get("partial") and existing.get("total", 0) > 0:
+                details  = existing["details"]
+                correct  = existing["correct"]
+                total    = existing["total"]
+                n_tied   = existing.get("n_tied", 0)
+                done_ids = {d["id"] for d in details}
+                print(f"[RESUME] {out_path.name}: {total} done, {len(done_ids)} ids skipped")
         except Exception:
             pass
 
-    print(f"\n{'='*60}\n  XLSC: setup={setup}  bench={bench}  N={n}  temp={temp}\n{'='*60}")
+    print(f"\n{'='*60}\n  XLSC: setup={setup}  bench={bench}  N={n}  temp={temp}  batch={batch_size}\n{'='*60}")
 
     # ── Load model ───────────────────────────────────────────────────────
     # Two-step loading: base first → patch → adapter
@@ -159,67 +216,61 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: 
         import random as _r
         _r.Random(SAMPLE_SEED).shuffle(records)
         records = records[:limit]
-    print(f"  Loaded {len(records)} problems")
 
-    correct = total = 0
-    n_tied = 0
-    details = []
+    # Filter already-done problems when resuming
+    if done_ids:
+        records = [r for i, r in enumerate(records)
+                   if r.get("id", str(i)) not in done_ids]
+        print(f"  Resuming: {len(records)} problems remaining")
+    else:
+        print(f"  Loaded {len(records)} problems  |  batch_size={batch_size}  n={n}")
 
-    for i, rec in enumerate(tqdm(records, desc=f"XLSC {setup}/{bench}")):
-        gold = normalize_gold(rec)
-        sample_pairs = []  # list of (lang, answer) for all 2N samples
+    last_saved = total  # track save point independent of batch_size
 
-        for system_lang in ("ko", "en"):
-            prompt = make_prompt_xlsc(rec, system_lang, tokenizer)
-            inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-            inp_len = inputs["input_ids"].shape[1]
+    for batch_start in tqdm(range(0, len(records), batch_size),
+                            desc=f"XLSC {setup}/{bench}"):
+        batch_recs = records[batch_start:batch_start + batch_size]
 
-            with torch.inference_mode():
-                out = model.generate(
-                    **inputs,
-                    max_new_tokens=MAX_NEW_TOKENS,
-                    do_sample=True,
-                    temperature=temp,
-                    top_p=0.95,
-                    num_return_sequences=n,
-                    repetition_penalty=1.1,
-                    pad_token_id=tokenizer.eos_token_id,
-                )
-            for j in range(out.shape[0]):
-                gen = tokenizer.decode(out[j][inp_len:], skip_special_tokens=True).strip()
-                ans = extract_answer_bilingual(gen)
-                sample_pairs.append((system_lang, ans))
+        ko_prompts = [make_prompt_xlsc(rec, "ko", tokenizer) for rec in batch_recs]
+        en_prompts = [make_prompt_xlsc(rec, "en", tokenizer) for rec in batch_recs]
 
-        ko_samples = [a for lang, a in sample_pairs if lang == "ko"]
-        en_samples = [a for lang, a in sample_pairs if lang == "en"]
-        all_samples = ko_samples + en_samples
+        # Generate n samples per problem for each language
+        # generate_batch returns [B][n] answer lists
+        ko_results = generate_batch(model, tokenizer, ko_prompts, n, temp)
+        en_results = generate_batch(model, tokenizer, en_prompts, n, temp)
 
-        voted, counts, tied = vote(all_samples)
-        ko_voted, _, _ = vote(ko_samples)
-        en_voted, _, _ = vote(en_samples)
+        for j, rec in enumerate(batch_recs):
+            gold = normalize_gold(rec)
+            ko_samples = ko_results[j]
+            en_samples = en_results[j]
+            all_samples = ko_samples + en_samples
 
-        ok = is_correct(voted, gold)
-        correct += int(ok)
-        total += 1
-        if tied:
-            n_tied += 1
+            voted, counts, tied = vote(all_samples)
+            ko_voted, _, _ = vote(ko_samples)
+            en_voted, _, _ = vote(en_samples)
 
-        details.append({
-            "id":          rec.get("id", f"{i}"),
-            "question":    rec.get("question", rec.get("problem", "")),
-            "gold":        gold,
-            "ko_samples":  ko_samples,
-            "en_samples":  en_samples,
-            "ko_majority": ko_voted,
-            "en_majority": en_voted,
-            "voted":       voted,
-            "is_tied":     tied,
-            "vote_counts": counts,
-            "correct":     ok,
-        })
+            ok = is_correct(voted, gold)
+            correct += int(ok)
+            total += 1
+            if tied:
+                n_tied += 1
 
-        # Incremental save every 50 problems
-        if (i + 1) % 50 == 0:
+            details.append({
+                "id":          rec.get("id", f"{batch_start + j}"),
+                "question":    rec.get("question", rec.get("problem", "")),
+                "gold":        gold,
+                "ko_samples":  ko_samples,
+                "en_samples":  en_samples,
+                "ko_majority": ko_voted,
+                "en_majority": en_voted,
+                "voted":       voted,
+                "is_tied":     tied,
+                "vote_counts": counts,
+                "correct":     ok,
+            })
+
+        # Save every 50 problems regardless of batch_size
+        if total - last_saved >= 50:
             partial = {
                 "setup": setup, "bench": bench, "n": n, "temp": temp,
                 "method": "xlsc",
@@ -231,6 +282,7 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float, limit: 
             }
             with open(out_path, "w", encoding="utf-8") as f:
                 json.dump(partial, f, ensure_ascii=False, indent=2)
+            last_saved = total
 
     acc = round(correct / total * 100, 2) if total else 0.0
     summary = {
@@ -258,12 +310,14 @@ def main():
     ap.add_argument("--temp",  type=float, default=0.7)
     ap.add_argument("--limit", type=int,   default=0,
                     help="0 = use full benchmark; otherwise subsample N problems (seed=42)")
+    ap.add_argument("--batch_size", type=int, default=16,
+                    help="problems per batch (default 16; VRAM = batch * n * seq_len)")
     args = ap.parse_args()
 
     project = Path(__file__).resolve().parent.parent.parent
     benches = ["hrm8k", "gsm8k"] if args.bench == "all" else [args.bench]
     for b in benches:
-        run_xlsc(args.setup, b, project, args.n, args.temp, args.limit)
+        run_xlsc(args.setup, b, project, args.n, args.temp, args.limit, args.batch_size)
 
 
 if __name__ == "__main__":

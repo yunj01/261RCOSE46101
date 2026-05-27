@@ -2,7 +2,7 @@
 Greedy evaluation for the 5 setups in the DALR pipeline.
 
 Setups:
-  a         = Base (no FT, Qwen2.5-3B-Instruct as-is)
+  a         = Base (no FT, Llama-3.2-3B-Instruct as-is)
   b         = English CoT FT
   c         = Korean CoT FT
   d         = Bilingual Mix FT (50/50)
@@ -10,15 +10,13 @@ Setups:
   e_random  = DALR ablation (random EN bridges on easy problems)
 
 Benchmarks:
-  hrm8k = data/eval/hrm8k_ko.jsonl      (1,319 Korean math) ⭐ main
+  hrm8k = data/eval/hrm8k_ko.jsonl      (1,319 Korean math)
   gsm8k = data/eval/gsm8k_test_en.jsonl (1,319 English math)
 
 Usage:
   python -m src.eval.evaluate --setup e --bench hrm8k
   python -m src.eval.evaluate --setup all --bench all   # full matrix
 """
-
-from unsloth import FastLanguageModel
 
 import os
 import re
@@ -27,6 +25,10 @@ import argparse
 from pathlib import Path
 from tqdm import tqdm
 
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
+
 
 MODEL_NAME   = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
 MAX_SEQ_LEN  = 1024
@@ -34,9 +36,17 @@ MAX_NEW_TOKENS = 512      # 팀원 코드와 동일
 SAMPLE_SEED  = 42         # reproducible subsampling
 EVAL_BATCH_SIZE = 8       # batch inference for speed (RTX 5070 Ti 16GB)
 
-# 팀원 코드 동일: system prompt로 CoT 유도 (zero-shot CoT prompting)
 SYSTEM_KO = "당신은 수학 문제를 단계별로 풀어주는 친절한 선생님입니다."
 SYSTEM_EN = "You are a helpful math tutor. Solve problems step by step."
+
+# Override via env var for A/B testing the zero-shot baseline (Setup A).
+# Example: $env:SYSTEM_KO_OVERRIDE = ""    # empty system prompt
+#          $env:SYSTEM_KO_OVERRIDE = "EN"  # use SYSTEM_EN for hrm8k too
+_OVERRIDE = os.environ.get("SYSTEM_KO_OVERRIDE", None)
+if _OVERRIDE is not None:
+    SYSTEM_KO = SYSTEM_EN if _OVERRIDE == "EN" else _OVERRIDE
+    print(f"[SYSTEM_KO override] -> {SYSTEM_KO!r}")
+
 
 SETUP_ADAPTER = {
     "a":        None,                       # base, no adapter
@@ -80,7 +90,7 @@ def load_bench(path: Path):
 
 
 def make_prompt(record, bench_name, tokenizer):
-    """팀원 코드 매칭: system(CoT 유도) + user(질문), chat template 적용"""
+    """Build prompt: system(CoT guide) + user(question), apply chat template"""
     q = record.get("question", record.get("problem", ""))
     system = SYSTEM_KO if bench_name == "hrm8k" else SYSTEM_EN
     messages = [
@@ -93,24 +103,52 @@ def make_prompt(record, bench_name, tokenizer):
     return prompt
 
 
+# Numeric capture allows thousands separators (e.g., "70,000") and decimals.
+_NUM = r"(-?[\d,]+(?:\.\d+)?)"
+# Conservative marker patterns: only those rarely matching intermediate calculations.
+_RE_BOXED  = re.compile(rf"\\boxed\{{\s*{_NUM}\s*\}}")
+_RE_HASH4  = re.compile(rf"####\s*{_NUM}")
+_RE_ANS_EN = re.compile(rf"(?:the\s+)?(?:final\s+)?answer\s+is\s*:?\s*\$?\s*{_NUM}", re.IGNORECASE)
+_RE_ANS_KO = re.compile(rf"(?:답은|คำตอบ은)\s*\$?\s*{_NUM}")
+# Final-position number with comma-aware US thousands format.
+_RE_NUM_FALLBACK = re.compile(r"-?\d{1,3}(?:,\d{3})+(?:\.\d+)?|-?\d+(?:\.\d+)?")
+
+
+def _clean(s: str) -> str:
+    return s.replace(",", "").rstrip(".")
+
+
 def extract_answer(text: str, bench: str) -> str:
-    if bench == "gsm8k":
-        m = re.search(r"answer is\s*(?:\$)?(-?[\d,]+\.?\d*)", text, re.IGNORECASE)
-    else:
-        m = re.search(r"답은\s*(?:\$)?(-?[\d,]+\.?\d*)", text)
-    if m:
-        return m.group(1).replace(",", "").rstrip(".")
-    nums = re.findall(r"-?\d+\.?\d*", text)
-    return nums[-1] if nums else ""
+    """Robust numeric-answer extractor.
+
+    Strategy (apply in order, take LAST match per strategy = the model's final answer):
+      1. LaTeX \\boxed{X}            (highest precision)
+      2. GSM8K-canonical #### X
+      3. Bench-priority "answer is X" (EN for gsm8k, KO for hrm8k)
+      4. Cross-language "answer is X" (handles cross-lingual slip in base models)
+      5. Last standalone number with thousands-separator support
+    """
+    for rx in (_RE_BOXED, _RE_HASH4):
+        m = rx.findall(text)
+        if m:
+            return _clean(m[-1])
+
+    primary, secondary = (_RE_ANS_KO, _RE_ANS_EN) if bench == "hrm8k" else (_RE_ANS_EN, _RE_ANS_KO)
+    for rx in (primary, secondary):
+        m = rx.findall(text)
+        if m:
+            return _clean(m[-1])
+
+    nums = _RE_NUM_FALLBACK.findall(text)
+    return _clean(nums[-1]) if nums else ""
 
 
 def normalize_gold(record) -> str:
     ans = str(record.get("answer", "")).strip()
-    # strip trailing dot and commas
     return ans.replace(",", "").rstrip(".")
 
 
-def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
+def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: int = 16):
     adapter_rel = SETUP_ADAPTER[setup]
     adapter_path = (project / adapter_rel) if adapter_rel else None
     bench_path = project / BENCH_FILE[bench]
@@ -119,7 +157,12 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
     suffix = f"_limit{limit}" if limit else ""
     out_path = results_dir / f"setup_{setup}_{bench}{suffix}_exaone.json"
 
-    # ---- Resume: 완료된(partial=False) 결과만 skip ----
+    # ---- Resume logic ----
+    correct = 0
+    total = 0
+    details = []
+    done_ids = set()
+
     if out_path.exists():
         try:
             with open(out_path, encoding="utf-8") as f:
@@ -128,8 +171,12 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
                 print(f"\n[SKIP] {setup}/{bench} already done: {existing['accuracy']}% ({existing['correct']}/{existing['total']})")
                 print(f"  -> {out_path}")
                 return existing
-            elif existing.get("partial"):
-                print(f"\n[INFO] {setup}/{bench} has partial result ({existing['total']} done) - redoing from start")
+            elif existing.get("partial") and existing.get("total", 0) > 0:
+                details  = existing["details"]
+                correct  = existing["correct"]
+                total    = existing["total"]
+                done_ids = {d["id"] for d in details}
+                print(f"\n[RESUME] {setup}/{bench}: {total} done, resuming from problem {total}")
         except (json.JSONDecodeError, KeyError):
             pass  # corrupted, redo
 
@@ -139,7 +186,20 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
     print(f"  Bench: {bench_path}")
     print(f"{'='*60}\n")
 
-    # ---- Load model ----
+    # ---- Load model (raw transformers + PEFT, NOT unsloth) ----
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"  # left-padding required for batched causal LM generation
+
+    model = AutoModelForCausalLM.from_pretrained(
+        MODEL_NAME,
+        torch_dtype=torch.float16,
+        device_map="cuda",
+        trust_remote_code=True,
+        attn_implementation="sdpa",
+    )
+
     if adapter_path and adapter_path.exists():
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=str(adapter_path),
@@ -170,9 +230,14 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
         import random as _r
         _r.Random(SAMPLE_SEED).shuffle(records)
         records = records[:limit]
-        print(f"  Loaded {len(records)} problems (subsampled from full, seed={SAMPLE_SEED})")
+
+    # Filter already-done problems when resuming
+    if done_ids:
+        records = [r for i, r in enumerate(records)
+                   if r.get("id", str(i)) not in done_ids]
+        print(f"  Resuming: {len(records)} problems remaining  |  batch_size={batch_size}")
     else:
-        print(f"  Loaded {len(records)} problems")
+        print(f"  Loaded {len(records)} problems  |  batch_size={batch_size}")
 
     # ---- Batched inference (EVAL_BATCH_SIZE로 속도 향상) ----
     import torch
@@ -208,9 +273,9 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
             outputs = model.generate(
                 **inputs,
                 max_new_tokens=MAX_NEW_TOKENS,
-                do_sample=False,                # greedy (deterministic)
+                do_sample=False,          # greedy (deterministic)
                 temperature=1.0,
-                repetition_penalty=1.1,         # 팀원 코드 매칭 (loop 방지)
+                repetition_penalty=1.1,
                 pad_token_id=tokenizer.eos_token_id,
             )
 
@@ -247,6 +312,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0):
             }
             with open(out_path, "w", encoding="utf-8") as f:
                 json.dump(partial, f, ensure_ascii=False, indent=2)
+            last_saved = total
 
     accuracy = correct / total if total else 0.0
     summary = {
@@ -277,6 +343,8 @@ def main():
                         help="Subsample N problems per bench (0=all, default)")
     parser.add_argument("--tag", default="",
                         help="Suffix for results filename (e.g. 'quick')")
+    parser.add_argument("--batch_size", type=int, default=16,
+                        help="Inference batch size (default: 16)")
     args = parser.parse_args()
 
     project = Path(__file__).resolve().parent.parent.parent
@@ -287,7 +355,7 @@ def main():
     all_results = {}
     for setup in setups:
         for bench in benches:
-            result = run_eval(setup, bench, project, limit=args.limit)
+            result = run_eval(setup, bench, project, limit=args.limit, batch_size=args.batch_size)
             all_results[f"{setup}_{bench}"] = {
                 "accuracy": result["accuracy"],
                 "correct":  result["correct"],
