@@ -6,10 +6,6 @@ Improving Korean mathematical reasoning in a small language model
 (Qwen2.5-3B) by injecting cross-lingual signal at **two stages**:
 training (data routing) and inference (cross-lingual voting).
 
-> **이 repo는 팀 공유용 단일 source of truth입니다.**
-> 모든 실험은 이 코드/데이터로 재현해주세요. 다른 setup으로 돌린 결과는
-> 합치지 마세요. 자세한 협업 규칙은 [`TEAM_RULES.md`](TEAM_RULES.md) 참고.
-
 ---
 
 ## Overview
