@@ -139,7 +139,12 @@ python -m src.analysis.statistical_tests --limit 0
 ---
 
 ## Hardware
-RTX 5060 Ti (16GB), Qwen2.5-3B-Instruct (4-bit), LoRA r=32 α=64.
+Training/eval was distributed across team members:
+- 이윤제: RTX 5060 Ti (8GB) — Qwen2.5-3B (main pipeline)
+- 김상준: RTX 5070 Ti (16GB) — EXAONE-3.5-2.4B robustness
+- 원준서: RTX 5070 (12GB) — Llama-3.2-3B robustness
+
+All runs use 4-bit quantization, LoRA r=32 α=64.
 Single-model 1,319-problem evaluation: ~30 min.
 XLSC (KO×3 + EN×3): ~3 hours per benchmark.
 
