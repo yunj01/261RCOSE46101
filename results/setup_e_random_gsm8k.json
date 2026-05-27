@@ -1,5 +1,5 @@
 {
-  "setup": "f_random",
+  "setup": "e_random",
   "bench": "gsm8k",
   "total": 1319,
   "correct": 959,

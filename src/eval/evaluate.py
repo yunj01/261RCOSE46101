@@ -26,11 +26,12 @@ from pathlib import Path
 from tqdm import tqdm
 
 import torch
+from unsloth import FastLanguageModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
 
-MODEL_NAME   = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
+MODEL_NAME   = "Qwen/Qwen2.5-3B-Instruct"
 MAX_SEQ_LEN  = 1024
 MAX_NEW_TOKENS = 512      # 팀원 코드와 동일
 SAMPLE_SEED  = 42         # reproducible subsampling
@@ -155,7 +156,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
     results_dir = project / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_limit{limit}" if limit else ""
-    out_path = results_dir / f"setup_{setup}_{bench}{suffix}_exaone.json"
+    out_path = results_dir / f"setup_{setup}_{bench}{suffix}.json"
 
     # ---- Resume logic ----
     correct = 0
@@ -186,20 +187,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
     print(f"  Bench: {bench_path}")
     print(f"{'='*60}\n")
 
-    # ---- Load model (raw transformers + PEFT, NOT unsloth) ----
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.padding_side = "left"  # left-padding required for batched causal LM generation
-
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME,
-        torch_dtype=torch.float16,
-        device_map="cuda",
-        trust_remote_code=True,
-        attn_implementation="sdpa",
-    )
-
+    # ---- Load model (unsloth FastLanguageModel) ----
     if adapter_path and adapter_path.exists():
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=str(adapter_path),
@@ -220,6 +208,10 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
             attn_implementation="sdpa",
             trust_remote_code=True,
         )
+
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
 
     _patch_exaone_compat(model)
     FastLanguageModel.for_inference(model)

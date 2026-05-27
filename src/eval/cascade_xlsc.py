@@ -21,6 +21,7 @@ from pathlib import Path
 
 import torch
 from tqdm import tqdm
+from unsloth import FastLanguageModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
@@ -38,8 +39,8 @@ def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float,
                 limit: int, batch_size: int = 16):
     results_dir = project / "results"
     suffix = f"_limit{limit}" if limit else ""
-    xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
-    out_path  = results_dir / f"cascade_xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
+    xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
+    out_path  = results_dir / f"cascade_xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
 
     if not xlsc_path.exists():
         raise FileNotFoundError(

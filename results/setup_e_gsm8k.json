@@ -1,5 +1,5 @@
 {
-  "setup": "f",
+  "setup": "e",
   "bench": "gsm8k",
   "total": 1319,
   "correct": 915,

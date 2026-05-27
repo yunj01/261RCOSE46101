@@ -28,14 +28,13 @@ from trl import SFTTrainer
 
 
 # ---- Constants ----
-MODEL_NAME = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
+MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
 MAX_SEQ_LENGTH = 1024
 LORA_R = 32
 LORA_ALPHA = 64
 LORA_DROPOUT = 0.0
-# EXAONE-3.5 attention: out_proj (≠ o_proj); MLP: c_fc_0/c_fc_1/c_proj (≠ gate/up/down)
-LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "out_proj",
-                "c_fc_0", "c_fc_1", "c_proj"]
+LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj",
+                "gate_proj", "up_proj", "down_proj"]
 
 
 def _patch_exaone_compat(model):

@@ -2,8 +2,7 @@
 
 teacher:
   provider: "gemini"
-  model: "gemini-2.5-pro"          # CoT 생성용 (강력)
-  fallback_model: "gemini-2.5-flash"  # rate limit 시
+  model: "gemini-3-flash-preview"   # CoT 생성용
   rate_limit_rpm: 60                 # paid tier 가정
   max_retries: 3
   parallel_workers: 5
