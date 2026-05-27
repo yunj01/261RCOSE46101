@@ -30,14 +30,11 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
 
-# Use unsloth's FP16 mirror of meta-llama/Llama-3.2-3B-Instruct (identical weights,
-# avoids meta-llama gating issues). Diagnostic A/B test showed unsloth's
-# FastLanguageModel cuts HRM8K accuracy in half (22% vs 42%), so we use raw
-# transformers + PEFT for eval.
-MODEL_NAME   = "unsloth/Llama-3.2-3B-Instruct"
+MODEL_NAME   = "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct"
 MAX_SEQ_LEN  = 1024
-MAX_NEW_TOKENS = 512
-SAMPLE_SEED  = 42
+MAX_NEW_TOKENS = 512      # 팀원 코드와 동일
+SAMPLE_SEED  = 42         # reproducible subsampling
+EVAL_BATCH_SIZE = 8       # batch inference for speed (RTX 5070 Ti 16GB)
 
 SYSTEM_KO = "당신은 수학 문제를 단계별로 풀어주는 친절한 선생님입니다."
 SYSTEM_EN = "You are a helpful math tutor. Solve problems step by step."
@@ -64,6 +61,25 @@ BENCH_FILE = {
     "hrm8k": "data/eval/hrm8k_ko.jsonl",
     "gsm8k": "data/eval/gsm8k_test_en.jsonl",
 }
+
+def _patch_exaone_compat(model):
+    """EXAONE-3.5 compatibility shim for unsloth for_inference.
+    Traverses all submodules (works through PEFT/LoRA wrappers) to find
+    ExaoneModel and patches get_input_embeddings → self.wte."""
+    for _name, module in model.named_modules():
+        cls = type(module)
+        if "ExaoneModel" in cls.__name__ and not getattr(cls, "_exaone_compat_patched", False):
+            def _get_input_embeddings(self):
+                return getattr(self, "wte", None) or getattr(self, "embed_tokens", None)
+            def _set_input_embeddings(self, value):
+                attr = "wte" if hasattr(self, "wte") else "embed_tokens"
+                setattr(self, attr, value)
+            cls.get_input_embeddings = _get_input_embeddings
+            cls.set_input_embeddings = _set_input_embeddings
+            cls._exaone_compat_patched = True
+            print(f"[PATCH] EXAONE compat applied to {cls.__name__}")
+            break
+
 
 def load_bench(path: Path):
     records = []
@@ -139,7 +155,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
     results_dir = project / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_limit{limit}" if limit else ""
-    out_path = results_dir / f"setup_{setup}_{bench}{suffix}.json"
+    out_path = results_dir / f"setup_{setup}_{bench}{suffix}_exaone.json"
 
     # ---- Resume logic ----
     correct = 0
@@ -185,14 +201,28 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
     )
 
     if adapter_path and adapter_path.exists():
-        print(f"  Loading PEFT adapter from {adapter_path}")
-        model = PeftModel.from_pretrained(model, str(adapter_path))
-    elif adapter_path:
-        print(f"  [WARN] Adapter not found: {adapter_path}, using base model")
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=str(adapter_path),
+            max_seq_length=MAX_SEQ_LEN,
+            dtype=None,
+            load_in_4bit=True,
+            attn_implementation="sdpa",
+            trust_remote_code=True,
+        )
+    else:
+        if adapter_path:
+            print(f"  [WARN] Adapter not found: {adapter_path}, using base model")
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=MODEL_NAME,
+            max_seq_length=MAX_SEQ_LEN,
+            dtype=None,
+            load_in_4bit=True,
+            attn_implementation="sdpa",
+            trust_remote_code=True,
+        )
 
-    model.eval()
-
-    bad_words_ids = None  # language slip handled via extraction patterns
+    _patch_exaone_compat(model)
+    FastLanguageModel.for_inference(model)
 
     # ---- Load benchmark ----
     records = load_bench(bench_path)
@@ -209,22 +239,35 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
     else:
         print(f"  Loaded {len(records)} problems  |  batch_size={batch_size}")
 
-    # ---- Batched greedy inference ----
-    last_saved = total  # track save point independent of batch_size
+    # ---- Batched inference (EVAL_BATCH_SIZE로 속도 향상) ----
+    import torch
+    correct = 0
+    total = 0
+    details = []
 
-    for batch_start in tqdm(range(0, len(records), batch_size), desc=f"{setup}/{bench}"):
-        batch_records = records[batch_start:batch_start + batch_size]
-        batch_prompts = [make_prompt(rec, bench, tokenizer) for rec in batch_records]
+    # Left-padding for decoder-only batch inference
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    prompts_all = [make_prompt(rec, bench, tokenizer) for rec in records]
+    golds_all   = [normalize_gold(rec) for rec in records]
+
+    for batch_start in tqdm(range(0, len(records), EVAL_BATCH_SIZE),
+                            desc=f"{setup}/{bench}",
+                            total=(len(records) + EVAL_BATCH_SIZE - 1) // EVAL_BATCH_SIZE):
+        batch_end   = min(batch_start + EVAL_BATCH_SIZE, len(records))
+        batch_recs  = records[batch_start:batch_end]
+        batch_prompts = prompts_all[batch_start:batch_end]
+        batch_golds   = golds_all[batch_start:batch_end]
 
         inputs = tokenizer(
-            batch_prompts,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
+            batch_prompts, return_tensors="pt",
+            padding=True, truncation=True,
             max_length=MAX_SEQ_LEN,
         ).to("cuda")
 
-        inp_len = inputs["input_ids"].shape[1]  # uniform length due to left-padding
+        inp_lens = inputs["attention_mask"].sum(dim=1)  # actual token length per sample
 
         with torch.inference_mode():
             outputs = model.generate(
@@ -236,12 +279,12 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
                 pad_token_id=tokenizer.eos_token_id,
             )
 
-        for j, rec in enumerate(batch_records):
-            gen_ids = outputs[j][inp_len:]
+        for j, (rec, gold) in enumerate(zip(batch_recs, batch_golds)):
+            inp_len  = inp_lens[j].item()
+            gen_ids  = outputs[j][inp_len:]
             gen_text = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
 
             pred = extract_answer(gen_text, bench)
-            gold = normalize_gold(rec)
 
             try:
                 ok = abs(float(pred) - float(gold)) < 0.01
@@ -251,7 +294,7 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
             correct += int(ok)
             total += 1
             details.append({
-                "id":        rec.get("id", f"{batch_start + j}"),
+                "id":        rec.get("id", f"{batch_start+j}"),
                 "question":  rec.get("question", rec.get("problem", "")),
                 "gold":      gold,
                 "predicted": pred,
@@ -259,8 +302,8 @@ def run_eval(setup: str, bench: str, project: Path, limit: int = 0, batch_size: 
                 "correct":   ok,
             })
 
-        # Save every 50 problems regardless of batch_size
-        if total - last_saved >= 50:
+        # Incremental save every 50 samples (재부팅 대비)
+        if total % 50 == 0 or total == len(records):
             partial = {
                 "setup": setup, "bench": bench,
                 "total": total, "correct": correct,

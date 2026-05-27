@@ -95,24 +95,27 @@ E와 동일한 EN bridge 920개를 사용하되,
 
 | Setup | HRM8K-KO | 95% CI (KO) | GSM8K-EN |
 |-------|:--------:|:-----------:|:--------:|
-| **A** Zero-shot | 53.90 | [51.2, 56.6] | 71.65 |
-| **B** EN CoT SFT | 54.44 | [51.7, 57.2] | 74.22 |
-| **C** KO CoT SFT | 59.51 | [56.8, 62.2] | 70.74 |
-| **D** Bilingual SFT | 58.98 | [56.2, 61.8] | 74.98 |
-| **E** (DALR) | **61.79** 🥇 | [59.1, 64.4] | 69.37 |
-| **E_random** (ablation) | 58.83 | [56.2, 61.6] | 72.71 |
-| **E + XLSC** | 🔄 실행 중 | TBD | TBD |
-| **E + Cascade XLSC** | ⏳ XLSC 후 자동 | TBD | TBD |
+| **A** Zero-shot | 53.90 | [51.02, 56.48] | 71.65 |
+| **B** EN CoT SFT | 54.44 | [51.78, 57.32] | 74.22 |
+| **C** KO CoT SFT | 59.51 | [56.63, 62.17] | 70.74 |
+| **D** Bilingual SFT | 58.98 | [56.25, 61.79] | 74.98 |
+| **E** (DALR) | 61.79 | [59.29, 64.44] | 69.37 |
+| **E_random** (ablation) | 58.83 | [56.10, 61.79] | 72.71 |
+| **E + XLSC** (n=3, T=0.7) | **68.69** | **[66.19, 71.19]** | TBD |
+| **E + Cascade XLSC** | **69.98** 🥇 | **[67.40, 72.48]** | TBD |
 
-### 통계 검정 결과 (1,319 기준)
+### 통계 검정 결과 (1,319 기준, McNemar paired)
 
-| 비교 | Test | Result | 의의 |
-|------|------|--------|------|
-| **E vs E_random** (KO) ⭐ | McNemar | **p = 0.030 \*** | Routing > data scaling 입증 |
-| E vs C (KO) | McNemar | TBD | DALR이 단순 KO 학습보다 유의한가 |
-| E vs D (KO) | McNemar | TBD | DALR이 bilingual mix보다 유의한가 |
-| E + XLSC vs E (KO) | McNemar | TBD | XLSC 효과 |
-| Cascade vs XLSC (KO) | McNemar | TBD | Cascade 추가 효과 |
+| 비교 | Result | 의의 |
+|------|--------|------|
+| **E vs E_random** (KO) ⭐ | A>B=173, B>A=134, **p = 0.030 \*** | Routing > data scaling 입증 |
+| **E vs C** (KO) | A>B=177, B>A=147, p = 0.107 (ns) | C와의 차이는 marginal |
+| **E vs D** (KO) | A>B=180, B>A=143, **p = 0.045 \*** | bilingual mix 대비 유의 |
+| **E + XLSC vs E** (KO) ⭐ | A>B=170, B>A= 79, **p < 0.001 \*\*\*** | XLSC 효과 매우 강함 |
+| **Cascade vs XLSC** (KO) | A>B= 23, B>A=  6, **p = 0.003 \*\*** | Cascade 추가 효과 유의 |
+| **Cascade vs E** (KO) | A>B=177, B>A= 69, **p < 0.001 \*\*\*** | 통합 파이프라인 효과 |
+| E vs D (GSM8K) | A>B=115, B>A=189, **p < 0.001 \*\*\*** | KO 강화로 인한 EN trade-off |
+| E vs E_random (GSM8K) | A>B=138, B>A=182, **p = 0.016 \*** | EN trade-off 유의 |
 
 ---
 
@@ -151,14 +154,14 @@ E와 동일한 EN bridge 920개를 사용하되,
 
 | 작업 | 상태 | 결과 |
 |------|------|------|
-| A~D, E, E_random greedy 평가 | ✅ 완료 | 위 표 참조 |
-| Bootstrap 95% CI | ✅ 완료 | 위 표 참조 |
-| McNemar (E vs E_random) | ✅ 완료 | p=0.030 |
-| McNemar 나머지 비교 | ⏳ 추가 계산 필요 | TBD |
-| **E + XLSC** (KO×3+EN×3) | 🔄 **이제 시작** | — |
-| **E + Cascade XLSC** | ⏳ XLSC 완료 후 | — |
-| Llama 3.2-3B robustness | ⏳ 시간 되면 | TBD |
-| EXAONE 3.5-2.4B robustness | ⏳ 시간 되면 | TBD |
+| A~D, E, E_random greedy 평가 (1,319) | ✅ 완료 | 위 표 참조 |
+| Bootstrap 95% CI (all setups) | ✅ 완료 | 위 표 참조 |
+| McNemar 전체 비교 | ✅ 완료 | 위 표 참조 |
+| **E + XLSC** (HRM8K, KO×3+EN×3, T=0.7) | ✅ **완료** | **68.69%** (906/1319), ties=208 (15.77%) |
+| **E + Cascade XLSC** (HRM8K) | ✅ **완료** | **69.98%** (923/1319), flips +23/-6 |
+| E + XLSC (GSM8K) | ⏳ 선택사항 (시간 되면) | — |
+| Llama 3.2-3B robustness (준서 P3) | ⏳ 진행 예정 | — |
+| EXAONE 3.5-2.4B robustness (상준 P2) | ⏳ 진행 예정 | — |
 
 ---
 
