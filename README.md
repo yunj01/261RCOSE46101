@@ -91,11 +91,7 @@ python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 
-# 3. (Required for evaluation) Download LoRA adapters from team Drive
-#    → place into weights/setup_{b,c,d,e,e_random}/
-#    Drive link: TBD (ask 윤제)
-
-# 4. Set GEMINI_API_KEY only if you need to regenerate teacher CoT
+# 3. Set GEMINI_API_KEY only if you need to regenerate teacher CoT
 $env:GEMINI_API_KEY = "..."   # PowerShell
 ```
 
