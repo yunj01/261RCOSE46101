@@ -42,11 +42,6 @@ Numbers on the full 1,319-problem test sets, Qwen2.5-3B-Instruct.
 E vs. E_random on HRM8K: **+2.96 pts**, McNemar **p = 0.030** —
 gains come from *routing*, not from added data.
 
-> **Setup naming.** Code, data, weights, and results are all aligned on
-> **E** / **E_random** (matching the paper). The dropped legacy
-> "two-stage E" setup and `setup_f*` naming have been removed.
-> Run scripts with `--setup e` / `--setup e_random`.
-
 ---
 
 ## Repository structure
@@ -58,24 +53,21 @@ src/
   eval/       # greedy evaluation, single-model SC, XLSC, Cascade XLSC
   analysis/   # bootstrap CI, McNemar tests
 config/       # base.yaml — all hyperparameters
-scripts/      # run scripts (ps1/bat; local-only)
+scripts/      # run scripts (PowerShell / batch)
 paper_template/  # NeurIPS-2020 LaTeX template
 data/
-  raw/        # GSM8K (EN, KO machine-translated) — tracked
-  eval/       # HRM8K, GSM8K test, KMMLU, KoBEST — tracked
-  teacher_cot/# Gemini CoT (cot_en.jsonl, cot_ko.jsonl) — tracked (~15MB)
+  raw/        # GSM8K (EN, KO machine-translated)
+  eval/       # HRM8K, GSM8K test, KMMLU, KoBEST
+  teacher_cot/# Gemini CoT (cot_en.jsonl, cot_ko.jsonl)
   train/      # per-setup SFT datasets (setup_{b,c,d,e_dalr,e_random}.jsonl)
-results/      # eval JSONs — tracked (team source of truth)
-weights/      # LoRA adapters — NOT tracked (large; share via Drive)
-PROJECT_CONTEXT.md  # current state, decisions, TBD list
-PAPER_OUTLINE.md    # paper section ownership, deliverables
-TEAM_RULES.md       # collaboration rules (read first!)
-paper_draft_v1.tex  # working paper draft
+results/      # eval JSONs
+weights/      # LoRA adapters (not tracked; ~4 GB)
+paper_draft_v1.tex  # paper draft
 ```
 
 ---
 
-## Setup (per team member)
+## Setup
 
 ```powershell
 # 1. Clone
@@ -112,14 +104,14 @@ python -m src.train.sft --setup e            # DALR
 python -m src.train.sft --setup e_random     # ablation
 ```
 
-### From shared weights (typical for teammates)
+### Evaluation
 
 ```bash
 # Greedy evaluation (single model)
 python -m src.eval.evaluate --setup e --bench hrm8k --limit 0
 python -m src.eval.evaluate --setup e --bench gsm8k --limit 0
 
-# Single-model self-consistency (sanity check baseline)
+# Single-model self-consistency
 python -m src.eval.self_consistency --setup e --bench hrm8k --n 6 --temp 0.7
 
 # Cross-Lingual Self-Consistency (XLSC)
@@ -152,6 +144,3 @@ XLSC (KO×3 + EN×3): ~3 hours per benchmark.
 | 이윤제 | 2022320317 | DALR design/training, statistical analysis, paper §3.2 §5 |
 | 김상준 | 2022320306 | XLSC/Cascade, tie analysis, paper §3.3 §3.4 |
 | 원준서 | 2022320302 | Baselines (A–D), robustness (Llama, EXAONE), paper §4 |
-
-See [`TEAM_RULES.md`](TEAM_RULES.md) for collaboration rules and
-[`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) for current state.
