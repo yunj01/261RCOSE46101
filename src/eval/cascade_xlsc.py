@@ -27,6 +27,7 @@ from peft import PeftModel
 from src.eval.evaluate import (
     MODEL_NAME, MAX_SEQ_LEN, MAX_NEW_TOKENS,
     SETUP_ADAPTER, BENCH_FILE,
+    _patch_exaone_compat,
 )
 from src.eval.xlsc import (
     make_prompt_xlsc, extract_answer_bilingual, vote, is_correct,
@@ -37,8 +38,8 @@ def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float,
                 limit: int, batch_size: int = 16):
     results_dir = project / "results"
     suffix = f"_limit{limit}" if limit else ""
-    xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
-    out_path  = results_dir / f"cascade_xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
+    xlsc_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
+    out_path  = results_dir / f"cascade_xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
 
     if not xlsc_path.exists():
         raise FileNotFoundError(
@@ -67,25 +68,27 @@ def run_cascade(setup: str, bench: str, project: Path, n: int, temp: float,
         print(f"  -> {out_path.name}")
         return out
 
-    # ── Load model (raw transformers + PEFT, NOT unsloth) ──────────────
+    # ── Load model ───────────────────────────────────────────────────────
+    # Two-step loading: base first → patch → adapter
     adapter_rel = SETUP_ADAPTER[setup]
     adapter_path = (project / adapter_rel) if adapter_rel else None
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME,
-        torch_dtype=torch.float16,
-        device_map="cuda",
-        trust_remote_code=True,
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name=MODEL_NAME,   # always load base first
+        max_seq_length=MAX_SEQ_LEN,
+        dtype=None,
+        load_in_4bit=True,
         attn_implementation="sdpa",
+        trust_remote_code=True,
     )
+    _patch_exaone_compat(model)  # patch ExaoneModel class before PEFT
+
     if adapter_path and adapter_path.exists():
-        print(f"  Loading PEFT adapter from {adapter_path}")
-        model = PeftModel.from_pretrained(model, str(adapter_path))
-    model.eval()
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, str(adapter_path), is_trainable=False)
+
+    _patch_exaone_compat(model)
+    FastLanguageModel.for_inference(model)
 
     # ── Generate one extra EN sample per tied problem (batched) ─────────
     correct_before = sum(1 for d in details if d["correct"])

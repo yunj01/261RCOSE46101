@@ -34,6 +34,7 @@ from src.eval.evaluate import (
     SETUP_ADAPTER, BENCH_FILE,
     SYSTEM_KO, SYSTEM_EN,
     load_bench, normalize_gold,
+    _patch_exaone_compat,
 )
 
 
@@ -160,7 +161,7 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float,
     results_dir = project / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     suffix = f"_limit{limit}" if limit else ""
-    out_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
+    out_path = results_dir / f"xlsc_{setup}_n{n}_t{temp}_{bench}{suffix}_exaone.json"
 
     # ── Resume logic ─────────────────────────────────────────────────────
     correct = total = 0
@@ -187,25 +188,27 @@ def run_xlsc(setup: str, bench: str, project: Path, n: int, temp: float,
 
     print(f"\n{'='*60}\n  XLSC: setup={setup}  bench={bench}  N={n}  temp={temp}  batch={batch_size}\n{'='*60}")
 
-    # ── Load model (raw transformers + PEFT, NOT unsloth) ──────────────
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.padding_side = "left"
-
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME,
-        torch_dtype=torch.float16,
-        device_map="cuda",
-        trust_remote_code=True,
-        attn_implementation="sdpa",
-    )
-    if adapter_path and adapter_path.exists():
-        print(f"  Loading PEFT adapter from {adapter_path}")
-        model = PeftModel.from_pretrained(model, str(adapter_path))
-    elif adapter_path:
+    # ── Load model ───────────────────────────────────────────────────────
+    # Two-step loading: base first → patch → adapter
+    # (PEFT tied-weight check fires inside from_pretrained; patch must precede it)
+    if adapter_path and not adapter_path.exists():
         print(f"  [WARN] Adapter not found: {adapter_path}, using base model")
-    model.eval()
+
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name=MODEL_NAME,   # always load base first
+        max_seq_length=MAX_SEQ_LEN,
+        dtype=None,
+        load_in_4bit=True,
+        attn_implementation="sdpa",
+        trust_remote_code=True,
+    )
+    _patch_exaone_compat(model)  # patch ExaoneModel class NOW, before PEFT
+
+    if adapter_path and adapter_path.exists():
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, str(adapter_path), is_trainable=False)
+
+    FastLanguageModel.for_inference(model)
 
     # ── Load benchmark ──────────────────────────────────────────────────
     records = load_bench(bench_path)
