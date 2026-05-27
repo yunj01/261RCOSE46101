@@ -1,6 +1,6 @@
 # Difficulty-Aware Language Routing and Cross-Lingual Self-Consistency for Korean Mathematical Reasoning
 
-**Korea University COSE461 — Final Project · Team "Three Brothers"**
+**Korea University COSE461 — Final Project · Team 20**
 
 Improving Korean mathematical reasoning in a small language model
 (Qwen2.5-3B) by injecting cross-lingual signal at **two stages**:
@@ -149,7 +149,7 @@ XLSC (KO×3 + EN×3): ~3 hours per benchmark.
 
 ---
 
-## Team (Team "Three Brothers")
+## Team 20
 | Name | ID | Role |
 |------|----|------|
 | 이윤제 | 2022320317 | DALR design/training, statistical analysis, paper §3.2 §5 |
