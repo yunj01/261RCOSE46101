@@ -40,8 +40,8 @@ Numbers on the full 1,319-problem test sets, Qwen2.5-3B-Instruct.
 | D (Bilingual mix) | 58.98 | 74.98 |
 | **E (DALR)** | **61.79** | 69.37 |
 | E_random (ablation) | 58.83 | 72.71 |
-| **E + XLSC** | TBD | TBD |
-| **E + Cascade XLSC** | TBD | TBD |
+| **E + XLSC** | **68.69** | — |
+| **E + Cascade XLSC** | **69.98** | — |
 
 E vs. E_random on HRM8K: **+2.96 pts**, McNemar **p = 0.030** —
 gains come from *routing*, not from added data.
@@ -59,7 +59,7 @@ gains come from *routing*, not from added data.
 src/
   data/       # download, teacher CoT generation, DALR data construction
   train/      # LoRA SFT
-  eval/       # greedy evaluation, single-model SC (XLSC + Cascade TBD)
+  eval/       # greedy evaluation, single-model SC, XLSC, Cascade XLSC
   analysis/   # bootstrap CI, McNemar tests
 config/       # base.yaml — all hyperparameters
 scripts/      # run scripts (ps1/bat; local-only)
@@ -130,11 +130,11 @@ python -m src.eval.evaluate --setup e --bench gsm8k --limit 0
 # Single-model self-consistency (sanity check baseline)
 python -m src.eval.self_consistency --setup e --bench hrm8k --n 6 --temp 0.7
 
-# Cross-Lingual Self-Consistency (XLSC) — TBD, script under construction
-# python -m src.eval.xlsc --setup e --bench hrm8k --n 3 --temp 0.7
+# Cross-Lingual Self-Consistency (XLSC)
+python -m src.eval.xlsc --setup e --bench hrm8k --n 3 --temp 0.7
 
-# Cascade XLSC — TBD
-# python -m src.eval.cascade_xlsc --setup e --bench hrm8k
+# Cascade XLSC (tie-breaking with one extra EN sample)
+python -m src.eval.cascade_xlsc --setup e --bench hrm8k
 
 # Statistics (bootstrap CI + McNemar)
 python -m src.analysis.statistical_tests --limit 0
