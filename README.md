@@ -135,11 +135,6 @@ XLSC (KO×3 + EN×3): ~3 hours per benchmark.
 ## Team 20
 | Name | ID | Role |
 |------|----|------|
-| 이윤제 | 2022320317 | DALR design and implementation, E and E_random train-
-ing and evaluation on Qwen, XLSC implementation and evaluation, statistical anal-
-ysis (bootstrap CIs, McNemar tests), paper writing (Sections 3.2 and 4.5). |
-| 김상준 | 2022320306 | Baseline (A–D) training and evaluation on Qwen, EXAONE-
-3.5-2.4B robustness experiments (full pipeline), paper writing (Section 3.3 and Anal-
-ysis). |
-| 원준서 | 2022320302 | Teacher CoT generation and data construction, Llama-3.2-
-3B robustness experiments (full pipeline), paper writing (Experiments section). |
+| 이윤제 | 2022320317 | DALR design and implementation, E and E_random training and evaluation on Qwen, XLSC implementation and evaluation, statistical analysis (bootstrap CIs, McNemar tests), paper writing (Sections 3.2 and 4.5). |
+| 김상준 | 2022320306 | Baseline (A–D) training and evaluation on Qwen, EXAONE-3.5-2.4B robustness experiments (full pipeline), paper writing (Section 3.3 and Analysis). |
+| 원준서 | 2022320302 | Teacher CoT generation and data construction, Llama-3.2-3B robustness experiments (full pipeline), paper writing (Experiments section). |
