@@ -18,7 +18,7 @@ degraded signal. We address this with **two cross-lingual mechanisms**:
 | Stage | Method | Idea |
 |-------|--------|------|
 | Data | **DALR** (ours) | Per-problem routing: KO CoT if teacher Korean is correct, EN CoT as a *bridge* otherwise. |
-| Inference | **XLSC + Cascade** (ours) | Sample N×KO + N×EN from the DALR model and vote; resolve 3:3 ties with one extra EN sample. |
+| Inference | **XLSC** (ours) | Sample N×KO + N×EN from the DALR model and vote. |
 
 We also keep an ablation, **E_random**, with the same number of EN
 bridges placed on randomly chosen *easy* problems instead of hard ones,
@@ -114,9 +114,6 @@ python -m src.eval.self_consistency --setup e --bench hrm8k --n 6 --temp 0.7
 # Cross-Lingual Self-Consistency (XLSC)
 python -m src.eval.xlsc --setup e --bench hrm8k --n 3 --temp 0.7
 
-# Cascade XLSC (tie-breaking with one extra EN sample)
-python -m src.eval.cascade_xlsc --setup e --bench hrm8k
-
 # Statistics (bootstrap CI + McNemar)
 python -m src.analysis.statistical_tests --limit 0
 ```
@@ -138,6 +135,11 @@ XLSC (KO×3 + EN×3): ~3 hours per benchmark.
 ## Team 20
 | Name | ID | Role |
 |------|----|------|
-| 이윤제 | 2022320317 | DALR design/training, statistical analysis, paper §3.2 §5 |
-| 김상준 | 2022320306 | XLSC/Cascade, tie analysis, paper §3.3 §3.4 |
-| 원준서 | 2022320302 | Baselines (A–D), robustness (Llama, EXAONE), paper §4 |
+| 이윤제 | 2022320317 | DALR design and implementation, E and E_random train-
+ing and evaluation on Qwen, XLSC implementation and evaluation, statistical anal-
+ysis (bootstrap CIs, McNemar tests), paper writing (Sections 3.2 and 4.5). |
+| 김상준 | 2022320306 | Baseline (A–D) training and evaluation on Qwen, EXAONE-
+3.5-2.4B robustness experiments (full pipeline), paper writing (Section 3.3 and Anal-
+ysis). |
+| 원준서 | 2022320302 | Teacher CoT generation and data construction, Llama-3.2-
+3B robustness experiments (full pipeline), paper writing (Experiments section). |
