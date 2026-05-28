@@ -49,7 +49,7 @@ gains come from *routing*, not from added data.
 src/
   data/       # download, teacher CoT generation, DALR data construction
   train/      # LoRA SFT
-  eval/       # greedy evaluation, single-model SC, XLSC, Cascade XLSC
+  eval/       # greedy evaluation, single-model SC, XLSC
   analysis/   # bootstrap CI, McNemar tests
 config/       # base.yaml — all hyperparameters
 scripts/      # run scripts (PowerShell / batch)
