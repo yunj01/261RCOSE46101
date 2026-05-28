@@ -43,14 +43,24 @@ def majority_answer(preds: list[str]) -> str:
     return nonempty[0]
 
 
-def run_sc(setup: str, bench: str, project: Path, n: int, temp: float, limit: int):
+def run_sc(setup: str, bench: str, project: Path, n: int, temp: float, limit: int,
+           prompt_lang: str = "auto", batch_size: int = 1):
     adapter_rel = SETUP_ADAPTER[setup]
     adapter_path = (project / adapter_rel) if adapter_rel else None
     bench_path = project / BENCH_FILE[bench]
     results_dir = project / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
+    # Override system-prompt + extractor language (for KO*N / EN*N controls
+    # on the same Korean test set; ablation for XLSC's cross-lingual claim).
+    if prompt_lang == "ko":
+        prompt_bench = "hrm8k"
+    elif prompt_lang == "en":
+        prompt_bench = "gsm8k"
+    else:
+        prompt_bench = bench
+    prompt_suffix = f"_prompt{prompt_lang.upper()}" if prompt_lang != "auto" else ""
     suffix = f"_limit{limit}" if limit else ""
-    out_path = results_dir / f"sc_{setup}_n{n}_t{temp}_{bench}{suffix}.json"
+    out_path = results_dir / f"sc_{setup}_n{n}_t{temp}_{bench}{prompt_suffix}{suffix}.json"
 
     if out_path.exists():
         try:
@@ -81,41 +91,56 @@ def run_sc(setup: str, bench: str, project: Path, n: int, temp: float, limit: in
         records = records[:limit]
     print(f"  Loaded {len(records)} problems")
 
+    # Setup tokenizer for left-padded batched generation
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
+
     correct = total = 0
     details = []
-    for i, rec in enumerate(tqdm(records, desc=f"SC {setup}/{bench}")):
-        prompt = make_prompt(rec, bench, tokenizer)
-        inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-
-        sample_preds = []
+    pbar = tqdm(total=len(records), desc=f"SC {setup}/{bench} B={batch_size}")
+    last_saved = 0
+    for batch_start in range(0, len(records), batch_size):
+        batch = records[batch_start:batch_start + batch_size]
+        prompts = [make_prompt(rec, prompt_bench, tokenizer) for rec in batch]
+        inputs = tokenizer(prompts, return_tensors="pt", padding=True).to("cuda")
         inp_len = inputs["input_ids"].shape[1]
+
         with torch.inference_mode():
-            # Generate all N samples in ONE batched call (parallel on GPU).
+            # Generate (batch_size * n) sequences in one call.
             out = model.generate(
                 **inputs, max_new_tokens=MAX_NEW_TOKENS,
                 do_sample=True, temperature=temp, top_p=0.95,
                 num_return_sequences=n,
                 repetition_penalty=1.1, pad_token_id=tokenizer.eos_token_id)
-            for j in range(out.shape[0]):
-                gen = tokenizer.decode(out[j][inp_len:], skip_special_tokens=True).strip()
-                sample_preds.append(extract_answer(gen, bench))
+        # out shape: [B*N, inp_len + max_new]. Reshape to [B, N, ...]
+        out = out.view(len(batch), n, -1)
 
-        voted = majority_answer(sample_preds)
-        gold = normalize_gold(rec)
-        try:
-            ok = abs(float(voted) - float(gold)) < 0.01
-        except (ValueError, TypeError):
-            ok = voted.strip() == gold.strip()
-        correct += int(ok); total += 1
-        details.append({"id": rec.get("id", f"{i}"), "gold": gold,
-                        "voted": voted, "samples": sample_preds, "correct": ok})
+        for bi, rec in enumerate(batch):
+            sample_preds = []
+            for j in range(n):
+                gen = tokenizer.decode(out[bi, j, inp_len:], skip_special_tokens=True).strip()
+                sample_preds.append(extract_answer(gen, prompt_bench))
+            voted = majority_answer(sample_preds)
+            gold = normalize_gold(rec)
+            try:
+                ok = abs(float(voted) - float(gold)) < 0.01
+            except (ValueError, TypeError):
+                ok = voted.strip() == gold.strip()
+            correct += int(ok); total += 1
+            details.append({"id": rec.get("id", f"{batch_start+bi}"), "gold": gold,
+                            "voted": voted, "samples": sample_preds, "correct": ok})
 
-        if (i + 1) % 50 == 0:
+        pbar.update(len(batch))
+        # Periodic save every ~50 problems
+        if total - last_saved >= 50:
+            last_saved = total
             with open(out_path, "w", encoding="utf-8") as f:
                 json.dump({"setup": setup, "bench": bench, "n": n, "temp": temp,
                            "total": total, "correct": correct,
                            "accuracy": round(correct/total*100, 2),
                            "partial": True, "details": details}, f, ensure_ascii=False, indent=2)
+    pbar.close()
 
     acc = round(correct/total*100, 2) if total else 0.0
     summary = {"setup": setup, "bench": bench, "n": n, "temp": temp,
@@ -134,12 +159,19 @@ def main():
     ap.add_argument("--n", type=int, default=5, help="number of samples to vote over")
     ap.add_argument("--temp", type=float, default=0.7)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--prompt-lang", default="auto", choices=["auto", "ko", "en"],
+                    help="Override system-prompt language (default: matches bench). "
+                         "Use 'en' on HRM8K to run the single-language EN*N control.")
+    ap.add_argument("--batch-size", type=int, default=1,
+                    help="Number of problems per generate() call. Each batch produces "
+                         "(batch_size * n) sequences in parallel on the GPU.")
     args = ap.parse_args()
 
     project = Path(__file__).resolve().parent.parent.parent
     benches = ["hrm8k", "gsm8k"] if args.bench == "all" else [args.bench]
     for b in benches:
-        run_sc(args.setup, b, project, args.n, args.temp, args.limit)
+        run_sc(args.setup, b, project, args.n, args.temp, args.limit,
+               args.prompt_lang, args.batch_size)
 
 
 if __name__ == "__main__":
