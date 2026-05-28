@@ -36,8 +36,7 @@ Numbers on the full 1,319-problem test sets, Qwen2.5-3B-Instruct.
 | D (Bilingual mix) | 58.98 | 74.98 |
 | **E (DALR)** | **61.79** | 69.37 |
 | E_random (ablation) | 58.83 | 72.71 |
-| **E + XLSC** | **68.69** | — |
-| **E + Cascade XLSC** | **69.98** | — |
+| **E + XLSC** | **69.90** | — |
 
 E vs. E_random on HRM8K: **+2.96 pts**, McNemar **p = 0.030** —
 gains come from *routing*, not from added data.
@@ -57,12 +56,10 @@ scripts/      # run scripts (PowerShell / batch)
 paper_template/  # NeurIPS-2020 LaTeX template
 data/
   raw/        # GSM8K (EN, KO machine-translated)
-  eval/       # HRM8K, GSM8K test, KMMLU, KoBEST
+  eval/       # HRM8K, GSM8K test
   teacher_cot/# Gemini CoT (cot_en.jsonl, cot_ko.jsonl)
   train/      # per-setup SFT datasets (setup_{b,c,d,e_dalr,e_random}.jsonl)
 results/      # eval JSONs
-weights/      # LoRA adapters (not tracked; ~4 GB)
-paper_draft_v1.tex  # paper draft
 ```
 
 ---
